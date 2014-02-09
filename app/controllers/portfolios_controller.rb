@@ -2,6 +2,7 @@ class PortfoliosController < ApplicationController
   # GET /portfolios
   # GET /portfolios.json
   def index
+    logger.info("@@@@@@Parm: #{params[:portfolio_type]}")
     @portfolios = Portfolio.all
 
     respond_to do |format|
