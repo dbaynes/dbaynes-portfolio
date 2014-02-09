@@ -7,4 +7,4 @@ rvm:
 #    secure: c52daf6e-4a9c-491b-a38e-331793d2fdda
 #  app: dbaynes-portfolio
 script: bundle exec rake db:migrate
-script: bundle exec rake
+
