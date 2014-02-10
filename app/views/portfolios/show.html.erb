@@ -1,5 +1,26 @@
 <p id="notice"><%= notice %></p>
 
 
+<p>
+  <b>Portfolio:</b>
+  <%= @portfolio.portfolio_type %>
+</p>
+
+<p>
+  <b>Time Frame:</b>
+  <%= @portfolio.timeframe %>
+</p>
+
+<p>
+  <b>Location</b>
+  <%= @portfolio.location %>
+</p>
+<p>
+  <b>Experience:</b>
+  <%= @portfolio.experience %>
+</p>
+
+
+
 <%= link_to 'Edit', edit_portfolio_path(@portfolio) %> |
 <%= link_to 'Back', portfolios_path %>

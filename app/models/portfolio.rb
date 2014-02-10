@@ -1,5 +1,10 @@
 class Portfolio < ActiveRecord::Base
   # attr_accessible :title, :body
+  #validates :portfolio_type,  :presence => true
+  validates :timeframe, :presence => true,
+                       :length => { :minimum => 5 }
+  validates :location, :length => {:maximum => 500}       
+  validates :experience, :length => {:maximum => 500}       
   
   PORTFOLIO_TYPES = {
     'Arts'          => :arts,
@@ -11,6 +16,10 @@ class Portfolio < ActiveRecord::Base
   }
   def portfolio_types
      return PORTFOLIO_TYPES
-   end
+  end
+  
+  #def to_param
+  #  "#{id}-#{portfolio_type.parameterize}"  
+  #end         
   
 end

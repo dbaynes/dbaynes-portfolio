@@ -18,12 +18,18 @@
 
 <table>
   <tr>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Portfolio</th>
+    <th>Time Frame</th>
+    <th>Location</th>
+    <th>Experience</th>
   </tr>
 
 <% @portfolios.each do |portfolio| %>
+	<tr>
+		<td><%portfolio.portfolio_type%>
+		<td><%portfolio.timeframe%>
+		<td><%portfolio.location%>
+		<td><%portfolio.experience%>
   <tr>
     <td><%= link_to 'Show', portfolio %></td>
     <td><%= link_to 'Edit', edit_portfolio_path(portfolio) %></td>
