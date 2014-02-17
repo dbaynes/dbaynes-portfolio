@@ -1,0 +1,18 @@
+<%case params[:portfolio_type] %>
+	<%when 'education'%>
+		<h1>New Education Project</h1>
+	<%when 'professional'%>
+		<h1>New Professional Project</h1>
+	<%when 'arts'%>
+		<h1>New Arts Project</h1>
+	<%when 'Athletics'%>
+		<h1>New Athletics Project</h1>
+	<%when 'Recreation'%>
+		<h1>New Recreation Project</h1>
+	<%else%>
+		<h1>New Project</h1>
+<%end%>
+
+<%= render 'form', portfolio_type: params[:portfolio_type] %>
+
+<%= link_to 'Back', projects_path %>

@@ -1,0 +1,38 @@
+<%case params[:portfolio_type]
+	 when  'education'%>
+		<h1>Education</h1>
+	 <%when  'arts'%>
+		<h1>Arts</h1>
+	 <%when  'letters'%>
+		<h1>Letters</h1>
+	 <%when  'athletics'%>
+		<h1>Athletics</h1>
+	 <%when  'recreational'%>
+		<h1>Recreational</h1>
+	 <%when  'professional'%>
+		<h1>Professional</h1>
+	<%else%>
+		<br/>
+		<br/>
+	  <h3>Portfolio Home David Baynes</h1>
+		<p>Please select portfolio area of interest:</p>
+		<ul>
+			<li><%=link_to "Education", projects_path(:portfolio_type=>'education') %></li>
+		</ul>	
+		<ul>
+			<li><%=link_to "Professional", projects_path(:portfolio_type=>'professional') %></li>
+		</ul>	
+		<ul>
+			<li><%=link_to "Arts", projects_path(:portfolio_type=>'arts') %></li>
+		</ul>	
+		<ul>
+			<li><%=link_to "Athletic", projects_path(:portfolio_type=>'athletic') %></li>
+		</ul>	
+		<ul>
+			<li><%=link_to "Recreational", projects_path(:portfolio_type=>'recreational') %></li>
+		</ul>	
+<%end%>
+		
+
+
+<!--%= link_to 'New Portfolio', new_portfolio_path, class: "button radius" %-->

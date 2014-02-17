@@ -33,7 +33,7 @@
   	<!-- Set the viewport width to device width for mobile -->
   	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  	<title><%= content_for?(:title) ? yield(:title) : "Portfolio - DBaynes" %></title>
 
   	<%= stylesheet_link_tag    "application" %>
   	<%= javascript_include_tag "vendor/custom.modernizr" %>
@@ -44,21 +44,21 @@
 		<nav class="top-bar">
 		  <ul class="title-area">
 		    <li class="name">
-		      <h1><%= link_to "Portfolio", portfolios_path %></a></h1>
+		      <h1><%= link_to "Portfolio",root_path %></a></h1>
 		    </li>
 		  </ul>
 		  <section class="top-bar-section">
 		    <ul class="right">
 		      <li class="divider"></li>
-		      <li><%= link_to "Education", portfolios_path(:portfolio_type=>'education') %></li>
+		      <li><%= link_to "Education", projects_path(:portfolio_type=>'education') %></li>
 		      <li class="divider"></li>
-		      <li><%= link_to "Professional", portfolios_path(:portfolio_type=>'professional') %></li>
+		      <li><%= link_to "Professional", projects_path(:portfolio_type=>'professional') %></li>
 		      <li class="divider"></li>
-		      <li><%= link_to "Arts", portfolios_path(:portfolio_type=>'arts') %></li>
+		      <li><%= link_to "Arts", projects_path(:portfolio_type=>'arts') %></li>
 		      <li class="divider"></li>
-		      <li><%= link_to "Athletic", portfolios_path(:portfolio_type=>'athletci') %></li>
+		      <li><%= link_to "Athletic", projects_path(:portfolio_type=>'athletci') %></li>
 		      <li class="divider"></li>
-		      <li><%= link_to "Recreational", portfolios_path(:portfolio_type=>'recreational') %></li>
+		      <li><%= link_to "Recreational", projects_path(:portfolio_type=>'recreational') %></li>
 		    </ul>
 		  </div>
 		</nav>
@@ -72,5 +72,10 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 			
 		</div>
     <%= javascript_include_tag "application" %>
+		<% flash.each do |key, value| %>
+		        <div class="alert-box round <%= flash_class(key) %>">
+		              <%= value %>
+		        </div>
+		  <% end %>
   </body>
 </html>

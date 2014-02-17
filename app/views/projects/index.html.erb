@@ -1,0 +1,49 @@
+<%case params[:portfolio_type]
+	 when  'education'%>
+		<h1>Education</h1>
+	 <%when  'arts'%>
+		<h1>Arts</h1>
+	 <%when  'letters'%>
+		<h1>Letters</h1>
+	 <%when  'athletics'%>
+		<h1>Athletics</h1>
+	 <%when  'recreational'%>
+		<h1>Recreational</h1>
+	 <%when  'professional'%>
+		<h1>Professional</h1>
+	<%else%>
+	  <h1>Portfolio</h1>
+<%end%>
+ 	<table>
+	  <%if @projects.empty? %>
+			<p><b>No <%=params[:portfolio_type].capitalize%> projects created to date.</b></p>
+		<%end%>
+     <% @projects.each do |p| %>
+		 	<tr>
+	   	   <td>Project:</td>
+		 	 	 <td><%=p.name%></td>
+		 	</tr>
+		 	<tr>
+		 	 	<td>Time Frame:</td>
+		 	 	<td><%=p.timeframe%></td>
+		 	</tr>
+		 	<tr>
+		 	 	<td>Locaton:</td>
+		 	 	<td><%=p.location%></td>
+		 	</tr>
+		 	<tr>
+		 	 	<td>Project Description:</td>
+		 	 	<td><%=p.project_description%></td>
+		 	</tr>
+     	 <tr>
+     	   <td><b><%= link_to 'Edit', edit_project_path(p) %></td>
+     	   <td><b><%= link_to 'Delete', p, method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
+      	</tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to "New #{params[:portfolio_type].capitalize} Project", new_project_path(:params => params) %> |
+<%= link_to "Back to Portfolio Collection", root_path%>

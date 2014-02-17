@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140208191943) do
+ActiveRecord::Schema.define(version: 20140212061906) do
 
-  create_table "portfolios", force: true do |t|
-    t.string   "portfolio_type", limit: 40
-    t.string   "timeframe",      limit: 40
-    t.string   "location",       limit: 40
-    t.text     "experience"
-    t.text     "special_notes"
+  create_table "projects", force: true do |t|
+    t.string   "portfolio_type",      limit: 40
+    t.string   "name",                limit: 40
+    t.string   "timeframe",           limit: 40
+    t.string   "location",            limit: 40
+    t.text     "project_description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
