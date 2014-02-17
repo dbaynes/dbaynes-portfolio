@@ -3,8 +3,10 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    if params[:portfolio_type].nil?
-      params[:portfolio_type] = 'professional'
+    if params[:portfolio_type].nil? 
+      params[:portfolio_type] ='all'
+    end
+    if params[:portfolio_type] == 'all'
       @projects = Project.all
     else
       @projects = Project.all(:conditions=>"(portfolio_type = '#{params[:portfolio_type]}')")\

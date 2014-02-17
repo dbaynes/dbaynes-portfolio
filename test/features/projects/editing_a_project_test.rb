@@ -1,6 +1,6 @@
 require "test_helper"
 
-feature "Editing A Project" do
+feature "Editing A Project - Validate Show Action" do
   scenario "Edit - 01 - submit updates to an existing project" do
     # Given an existing project
     # When I make changes
@@ -10,7 +10,9 @@ feature "Editing A Project" do
     click_on "Edit"
     fill_in "Name", with: "Becoming a Web Developer"
     click_on "Update Project"
+    #redirect to show
     page.text.must_include "successfully"
+    page.text.must_include "Web Developer"
     page.text.wont_include "Code Fellows Portfolio"
   end
 end
