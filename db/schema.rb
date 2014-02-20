@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212061906) do
+ActiveRecord::Schema.define(version: 20140219004617) do
 
   create_table "projects", force: true do |t|
     t.string   "portfolio_type",      limit: 40
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(version: 20140212061906) do
     t.string   "timeframe",           limit: 40
     t.string   "location",            limit: 40
     t.text     "project_description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", force: true do |t|
+    t.string   "email"
+    t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

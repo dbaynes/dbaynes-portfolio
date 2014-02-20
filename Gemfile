@@ -9,13 +9,17 @@ gem "minitest-rails"
 gem "minitest-rails-capybara"
 #?gem 'capybara'
 gem 'turn'
+
+gem 'bcrypt-ruby' # '~> 3.0.0'
+
+gem 'rails_12factor', group: :production
+gem 'pg'   #postgres
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
-
-
-gem 'sqlite3'
 
 gem 'json'
 
@@ -48,3 +52,5 @@ gem 'turbolinks'
 
 # To use debugger
 # gem 'ruby-debug'
+
+ruby "2.1.0"
