@@ -13,9 +13,9 @@ feature "Creating A Project" do
   scenario "new project has invalid data" do
       # Given invalid project data is entered in a form
       visit new_project_path
-      fill_in "Name", with: "Q"
+      #fill_in "Name", with: "Q"
       # When the form is submitted with a Name and  and missing title field
-      click_on "Create Project"
+      click_on "Project"
       # Then the form should be displayed again, with an error messages
       current_path.must_match /projects$/
       page.text.must_include "Project could not be saved"

@@ -1,0 +1,31 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+      <ul>
+      <% @post.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<%= f.hidden_field :project_id, :value => @project_id%>
+	<%= f.hidden_field :portfolio_type, :value => @portfolio_type%>
+	<div class="field">
+    <h3><%= @portfolio_type.capitalize %> Portfolio Post</h3><br/>
+   </div>
+  <div class="field">
+		<%= f.label :title, "How would you like to title this post?" %>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content, "Post Away!" %>
+    <%= f.text_area :content %>
+  </div>
+	<div>
+    <p>Author: <%= @author %> </p>
+  </div>
+  <div class="actions">
+ 	  <%= submit_tag "Create Post", :project => @project,:class=>"button" %>
+  </div>
+ <% end %>

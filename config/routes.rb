@@ -1,8 +1,16 @@
 DbaynesPortfolio::Application.routes.draw do
+  devise_for :users
   resources :users
-
   resources :projects
+  resources :posts
+  
   root :to => 'projects#start'
+  #root :to => 'devise/sessions#new'
+  #devise_scope :user do
+  #  root to: "devise/sessions#new"
+  #end  
+  
+  #match '/' => 'projects#start', :via => :get, :as=>"start"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

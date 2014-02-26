@@ -7,9 +7,9 @@ feature "Editing A Project - Validate Show Action" do
     # Then the changes should be saved and shown   # Given an existing project
     project = Project.create!(name: "Test Name", timeframe:"Spring, 2014", location: "Seattle",project_description: "Good Stuff")
     visit project_path(project)
-    click_on "Edit"
-    fill_in "Name", with: "Becoming a Web Developer"
-    click_on "Update Project"
+    #click_on "Edit"
+    #fill_in "Timeframe", with: "Spring 2014"
+    click_on "Project"
     #redirect to show
     page.text.must_include "successfully"
     page.text.must_include "Web Developer"

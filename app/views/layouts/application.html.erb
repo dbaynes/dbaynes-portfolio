@@ -41,9 +41,6 @@
   </head>
 
   <body>
-		<div id="user_header">
-		  <%= link_to "Sign Up", new_user_path %>
-		</div>
 		<nav class="top-bar">
 		  <ul class="title-area">
 		    <li class="name">
@@ -69,19 +66,26 @@
 		    </ul>
 		  </div>
 		</nav>
+		
 		<div class="row">
-			<div class="small-8 columns"><%=yield%></div>
+			<div class="small-8 columns">
+				<%=yield%>
+				<%= render 'layouts/user_widget' %>
+			</div>
 			<div class="small-4 columns">
 				<h2 class="subheader">Highlights</h2>
 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.			
 
 			</div>
-			
+
 		</div>
+
     <%= javascript_include_tag "application" %>
+
 		<% flash.each do |key, value| %>
 		        <div class="alert-box round <%= flash_class(key) %>">
-		              <%= value %>
+								<%logger.info("@@@@@@Value: #{value}")%>
+ 							<%= value %>
 		        </div>
 		  <% end %>
   </body>
