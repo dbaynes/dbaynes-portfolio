@@ -1,12 +1,14 @@
 class PostsController < ApplicationController
+  load_and_authorize_resource
   def new
     logger.info("@@@@@@Post New!")
     logger.info("@@@@@Params, if any: #{params[:project]}")
     logger.info("@@@@@@Params Portfolio Type: #{params[:portfolio_type]}")
     @post = Post.new
     @project_id = params[:project]
-    @portfolio_type = params[:portfolio_type]
+    @portfolio_type =  "professional"  #params[:portfolio_type]
     @author = current_user.email
+    
     logger.info("@@@@@@@project_id: #{@project_id}")
     logger.info("@@@@@@@project_id: #{@portfolio_type}")
     
@@ -15,24 +17,73 @@ class PostsController < ApplicationController
   def create
     @project_id = params[:post][:project_id]
     @portfolio_type = params[:post][:portfolio_type]
-    @project = Project.where(:id => "#{@project_id}").first 
+    
     @post = Post.new(post_params)
+    @project = @post.project ##@project = Project.where(:id => "#{@project_id}").first 
+    logger.info("@@@@@@post.Title: #{@post.title}")
+    logger.info("@@@@@@post.status: #{@post.status}")
+    logger.info("@@@@@portfolio_type: #{@project.portfolio_type}")
     ##@post = params[:post] 
     @post.username = current_user.email
     @post.title = params[:post][:title]
-    
-    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content )
+    @post.status = "Unpublished"
+    logger.info("@@@@@Post Status: #{@post.status}")
+     
+    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
     
     if @post.save
       flash[:success] = "Post was successfully created."
-      redirect_to projects_path(:portfolio_type =>"#{@portfolio_type}")
+      redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
     end
   end
+  def edit
+  end
+  def update
+    logger.info("@@@@@@params[:post]: #{params[:post]}") #published
+    logger.info("@@@@@@params[:id]: #{params[:id]}") #post id
+    
+    #@project_id = params[:post][:project_id]
+    #@portfolio_type = params[:post][:portfolio_type]
+    
+    @post = Post.find(params[:id])
+    #@post
+    #@project_id = Project.@post(:project_id)
+    @project = @post.project
+    logger.info("@@@@@@test: #{@project.portfolio_type}")
+    logger.info("@@@@@post: #{@post.project_id}")
+    logger.info("@@@@@@post.Title: #{@post.title}")
+    logger.info("@@@@@@post.status: #{@post.status}")
+    logger.info("@@@@@@post.username: #{@post.username}")
+    logger.info("@@@@@@post.project_id: #{@post.project_id}")
+    #@project = Project.where(:id => "#{@post.project_id}").first 
+    logger.info("@@@@@@portfolio_type:  = #{@project.portfolio_type}")
+    
+    @post.username = current_user.email
+    @post.title = params[:post][:title]
+    if @post.status == "Unpublished"
+      @post.status = "Published"
+    elsif @post.status == "Published"
+      @post.status = "Unpublished"
+    else
+      @post.status = "Unpublished"
+    end
+      
+    logger.info("@@@@@Post Status: #{@post.status}")
+     
+    ##@post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
+    
+    if @post.save
+      flash[:success] = "Post was successfully created."
+      redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
+    end
+  end
+  
   def post_params
-    params.require(:post).permit(:username,:content,:projects_attributes)
+    params.require(:post).permit(:username,:content, :title, :project_id, :status,:published, :projects_attributes)
   end
   def project_params
-    params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:posts_attributes)
+    params.require(:project).permit(:project_id, :portfolio_type,:title,:timeframe,:location,:project_description,:content,:posts_attributes)
+  #Unpermitted parameters: project_id, portfolio_type, title
   end
   
   

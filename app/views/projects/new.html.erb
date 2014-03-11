@@ -7,12 +7,12 @@
 		<h1>New Arts Project</h1>
 	<%when 'Athletics'%>
 		<h1>New Athletics Project</h1>
-	<%when 'Recreation'%>
+	<%when 'recreation'%>
 		<h1>New Recreation Project</h1>
 	<%else%>
-		<h1>New Project</h1>
+		<h1>New Project Type</h1>
 <%end%>
-
+<!---...%if params[:action]%-->
 <%= render 'form', portfolio_type: params[:portfolio_type] %>
 
 <%= link_to 'Back', projects_path %>

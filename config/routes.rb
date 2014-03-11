@@ -1,9 +1,8 @@
 DbaynesPortfolio::Application.routes.draw do
   devise_for :users
   resources :users
-  resources :projects
   resources :posts
-  
+  resources :projects
   root :to => 'projects#start'
   #root :to => 'devise/sessions#new'
   #devise_scope :user do

@@ -1,0 +1,44 @@
+
+# Portfolio Application 
+
+## Summary
+The intention of this project is to gain a strong working knowledge of a Rails 4.2 web application that 
+uses the zurb foundation responsive front-end framework and Devise for User access, athentication and
+authorization. 
+
+Application begins with the 'start' action (root :to => 'projects#start'). A portfolio has many different 
+portfolio types. In this case, Professional, Education, Arts, Athletics, Recreational. Each portfolio type 
+has a project. And each Project Type can have it's own posts.
+
+## Flow
+- Start: Presents Portfolio Types - Select Portfolio Type
+- Portfolio Type (index or projects_path filtered by portfolio_type)
+	- Projects: title, timeframe, location, project description
+		- Posts: title, content
+
+Experience and expertise gained here will be applied to the class project Klusters.
+
+## Environment
+- ruby 2.1.0
+- rails 4.0.2
+- Devise 3.2.3
+- postreSQL 9.3.3
+- zurb-foundation 4.3.2
+
+
+## Developer
+- David Baynes
+
+## Project References
+
+- https://github.com/plataformatec/devise
+- http://www.postgresql.org/docs/9.0/static/sql-createdatabase.html
+- http://railscasts.com/episodes/235-devise-and-omniauth-revised?view=asciicast
+- http://railscasts.com/episodes/209-devise-revised?view=asciicast
+- http://railscasts.com/episodes/417-foundation 
+- https://github.com/zurb/foundation
+
+
+=======
+
+Date: Tuesday February 19, 2014

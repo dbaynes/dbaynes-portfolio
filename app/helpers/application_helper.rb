@@ -7,5 +7,10 @@ module ApplicationHelper
         when :alert then "warning"
       end
   end
+  #def is_admin?(user)
+  #  logger.info("@@@@@@@is_admin!!!!!!")
+  #  admin_role = Role.find(:first, :conditions => ["name = ?", "admin"])
+  #  return user.roles.include?(admin_role)
+  #end
   
 end

@@ -2,18 +2,21 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.0.2'
 gem 'devise'
+gem 'cancan'
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'foundation-rails'
 gem "minitest-rails"
+gem "minitest-matchers"
 gem "minitest-rails-capybara"
-#?gem 'capybara'
+gem 'capybara'
 gem 'turn'
 
 gem 'bcrypt-ruby' # '~> 3.0.0'
 
 gem 'rails_12factor', group: :production
-gem 'pg'   #postgres
+gem 'pg'   #postgres for Prod
+gem 'sqlite3' # for dev and test
 
 
 group :doc do
@@ -53,4 +56,4 @@ gem 'turbolinks'
 # To use debugger
 # gem 'ruby-debug'
 
-ruby "2.0.0"
+#ruby "2.0.0"
