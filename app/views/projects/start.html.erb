@@ -17,21 +17,27 @@
 	  <h3>Portfolio Home David Baynes</h3>
 		<p>Please select portfolio area of interest:</p>
 		<ul>
-			<li><%=link_to "Education", projects_path(:portfolio_type=>'education') %></li>
+			<li><%=link_to "Professional", projects_path(:portfolio_type=>'professional') %></li>
 		</ul>	
 		<ul>
-			<li><%=link_to "Professional", projects_path(:portfolio_type=>'professional') %></li>
+			<li><%=link_to "Education", projects_path(:portfolio_type=>'education') %></li>
 		</ul>	
 		<ul>
 			<li><%=link_to "Arts", projects_path(:portfolio_type=>'arts') %></li>
 		</ul>	
 		<ul>
-			<li><%=link_to "Athletic", projects_path(:portfolio_type=>'athletic') %></li>
+			<li><%=link_to "Athletics", projects_path(:portfolio_type=>'athletics') %></li>
 		</ul>	
 		<ul>
-			<li><%=link_to "Recreation", projects_path(:portfolio_type=>'recreation') %></li>
+			<li><%=link_to "Recreational", projects_path(:portfolio_type=>'recreational') %></li>
 		</ul>	
+		<ul>
+			<li><%=link_to "All Projects", projects_path(:portfolio_type=>'all') %></li>
+		</ul>	
+
 <%end%>
-<% if can? :create, Project %>
- 	   <p><b><%= link_to 'Create a New Portfolio Type', new_project_path %></p>
+<% if user_signed_in? %>
+	<% if can? :create, Project %>
+ 	   	<p><b><%= link_to 'Create a New Portfolio Type', new_project_path %></p>
+	<%end%>
 <%end%>

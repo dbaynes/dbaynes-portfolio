@@ -1,5 +1,5 @@
 DbaynesPortfolio::Application.routes.draw do
-  devise_for :users
+  devise_for :users #, :controllers=>{:registrations => "users"}
   resources :users
   resources :posts
   resources :projects

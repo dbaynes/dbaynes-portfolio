@@ -5,12 +5,18 @@ class UsersController < ApplicationController
   end
   
   def create
-    
+    logger.info("@@@@@User Create Role: #{@user}")
     @user = User.new(user_params)
-    logger.info("@@@@@User Create: #{@user}")
+    logger.info("@@@@@User_params: #{params[:user][:email]}")
+    logger.info("@@@@@Role param : #{params[:role]}")
+    logger.info("@@@@@User.email: #{@user.email}")
+    @user.role = params[:role]
+    logger.info("@@@@@User.role: #{@user.role}")
     if @user.save
+      flash[:success] = "Thank you for signing up!"
       redirect_to root_url, notice: "Thank you for signing up!"
     else
+      logger.info("@@@@@User not Saved!")
       render "new"
     end
   end
@@ -21,8 +27,7 @@ class UsersController < ApplicationController
   
   private
   def user_params
-    logger.info("@@@@@@@User Params!")
-    params.require(:user).permit(:email, :password, :password_confirmation, :encrypted_password)
+    params.require(:user).permit(:email, :role, :password, :password_confirmation, :encrypted_password)
   end
   
 end

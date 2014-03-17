@@ -43,9 +43,14 @@ ActiveRecord::Schema.define(version: 201401314061906) do
     t.datetime "updated_at"
   end
 
+  create_table "roles_users", id: false, force: true do |t|
+    t.integer "role_id"
+    t.integer "user_id"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email"
-    t.string   "role",                   default: "guest", null: false
+    t.string   "role",                   default: "admin", null: false
     t.string   "password_digest"
     t.datetime "created_at"
     t.datetime "updated_at"

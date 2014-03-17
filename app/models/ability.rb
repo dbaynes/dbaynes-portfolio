@@ -20,7 +20,7 @@ class Ability
         can :create, Post 
         can :update, Post
         can :update, Project 
-     elsif user.role = 'guest'
+     elsif user.role == 'guest'
       Rails.logger.info("@@@@@User Role in Ability is Guest: #{user.role}")
             can :read, :all
             can :create, Post 

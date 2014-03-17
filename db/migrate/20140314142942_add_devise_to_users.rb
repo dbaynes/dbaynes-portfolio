@@ -4,7 +4,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
       ## Database authenticatable
       #t.string :email,              :null => false, :default => ""
       t.string :encrypted_password, :null => false, :default => ""
-      #t.string :role, :null => false, :default => "guest"
+      #t.string :role, :null => false, :default => "bloake"
       ## Recoverable
       t.string   :reset_password_token
       t.datetime :reset_password_sent_at
@@ -14,6 +14,7 @@ class AddDeviseToUsers < ActiveRecord::Migration
 
       ## Trackable
       t.integer  :sign_in_count, :default => 0, :null => false
+      #t.string :role, :null => false
       t.datetime :current_sign_in_at
       t.datetime :last_sign_in_at
       t.string   :current_sign_in_ip

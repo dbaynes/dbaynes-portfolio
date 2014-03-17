@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_and_belongs_to_many :roles
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   #has_many :posts, foreign_key: "username"
@@ -13,7 +14,7 @@ class User < ActiveRecord::Base
   
   #scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
   #
-  ROLES = %w[editor guest]
+  ROLES = %w[admin editor guest]
   
   def roles=(roles)
      self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum

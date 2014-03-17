@@ -1,12 +1,15 @@
 class ProjectsController < ApplicationController
   #before_action :set_project, only: [:show, :edit, :update, :destroy]
-  before_filter :authenticate_user!
-  load_and_authorize_resource :except => :start #:through => :current_user
+  before_filter :authenticate_user!, :except => [:start, :index]
+  load_and_authorize_resource :except => [:start, :index]  #, :through => :current_user
   def start
     logger.info("@@@@@Start!")
-    logger.info("@@@@Referrer:  #{request.referrer} - #{request.fullpath}")
-    logger.info("@@@@@Current User Email: #{current_user.email}")
-    logger.info("@@@@@Current User Role: #{current_user.role}")
+    #logger.info("@@@@Referrer:  #{request.referrer} - #{request.fullpath}")
+    if current_user.nil?
+      #flash[:message] = ""
+    end  
+    #logger.info("@@@@@Current User Email: #{current_user.email}")
+    #logger.info("@@@@@Current User Role: #{current_user.role}")
     render 'start'
    # if request.fullpath == '/'
    #   redirect_to("/users/sign_in")
@@ -82,7 +85,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:status,:posts_attributes)
+      params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:status,:posts_attributes,:users_attribut)
     end
     def post_params
       params.require(:post).permit(:status,:published,:content)
