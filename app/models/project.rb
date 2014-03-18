@@ -6,6 +6,5 @@ class Project < ActiveRecord::Base
                                   :length => { :minimum => 5 }
   #validates :timeframe,           :presence=> true
   validates :location,            :presence => true
-  validates :project_description, :presence => true,
-                                  :length => {:maximum => 500}       
+  validates :project_description, :presence => true
  end
