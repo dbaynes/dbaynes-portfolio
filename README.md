@@ -1,6 +1,7 @@
 
 # Portfolio Application 
 
+
 ## Summary
 The intention of this project is to gain a strong working knowledge of a Rails 4.2 web application that 
 uses the zurb foundation responsive front-end framework and Devise for User access, athentication and
@@ -22,6 +23,7 @@ Experience and expertise gained here will be applied to the class project Kluste
 - ruby 2.1.0
 - rails 4.0.2
 - Devise 3.2.3
+- CanCan
 - postreSQL 9.3.3
 - zurb-foundation 4.3.2
 
@@ -38,6 +40,26 @@ Experience and expertise gained here will be applied to the class project Kluste
 - http://railscasts.com/episodes/417-foundation 
 - https://github.com/zurb/foundation
 
+## Authentication Added
+	-	guest - no login
+	-	can post comments
+	-	editor
+	-	can post comments
+	-	can publish/unpublish posts
+	-	username: editor@editor.com
+	-	pw: editorship
+	-	admin
+	-	can post comments
+	-	can add projects
+	-	username: admin@admin.com
+	-	pw: admin
+
+Team Project:
+	-	Project conception where idea for an application was developed. 
+	-	made gem determination for uploading documents 
+	-	Built initial scaffolding and initial proof of concept for paperclip gem selection
+	-	Created initial document model 
+	-	Added CRUD for document model 
 
 =======
 
