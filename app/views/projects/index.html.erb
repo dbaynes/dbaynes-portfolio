@@ -68,11 +68,11 @@
 						<%end%>	
 				<%end%>
 			<%end %>
-		 	<%if can? :create, Post %>
+		 	<!--%if can? :create, Post %-->
 				<tr>
 		 		 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#C31E2D" %></b></td></td>
 		 		</tr>
-		  <%end%>
+		  <!--%end%-->
 			<!--%if current_user.email == 'dbaynes@gci.com'%-->
 			<% if can? :update, Project %>
 	     	 <tr>

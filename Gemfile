@@ -56,4 +56,4 @@ gem 'turbolinks'
 # To use debugger
 # gem 'ruby-debug'
 
-#ruby "2.0.0"
+ruby "2.1.0"

@@ -27,6 +27,7 @@ class Ability
     else
       Rails.logger.info("@@@@@User Role in Ability is Default Guest: #{user.role}")
       can :read, :all
+      can :create, Post 
     end 
     
        #user ||= User.new # guest user (not logged in)

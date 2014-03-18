@@ -7,7 +7,11 @@ class PostsController < ApplicationController
     @post = Post.new
     @project_id = params[:project]
     @portfolio_type =  "professional"  #params[:portfolio_type]
-    @author = current_user.email
+    if user_signed_in?
+      @author = current_user.email
+    else
+      @author = "Guest"
+    end
     
     logger.info("@@@@@@@project_id: #{@project_id}")
     logger.info("@@@@@@@project_id: #{@portfolio_type}")
@@ -24,7 +28,11 @@ class PostsController < ApplicationController
     logger.info("@@@@@@post.status: #{@post.status}")
     logger.info("@@@@@portfolio_type: #{@project.portfolio_type}")
     ##@post = params[:post] 
-    @post.username = current_user.email
+    if user_signed_in?
+      @post.username = current_user.email
+    else
+      @post.username = 'Guest'
+    end
     @post.title = params[:post][:title]
     @post.status = "Unpublished"
     logger.info("@@@@@Post Status: #{@post.status}")

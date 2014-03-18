@@ -4,6 +4,11 @@ class ProjectsController < ApplicationController
   load_and_authorize_resource :except => [:start, :index]  #, :through => :current_user
   def start
     logger.info("@@@@@Start!")
+    if user_signed_in?
+      logger.info("@@@@@Current User Email: #{current_user.email} Role: current_user.role")
+    else
+      logger.info("@@@@@User not signed in!")
+    end
     #logger.info("@@@@Referrer:  #{request.referrer} - #{request.fullpath}")
     if current_user.nil?
       #flash[:message] = ""
