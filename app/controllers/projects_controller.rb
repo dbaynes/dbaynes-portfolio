@@ -22,13 +22,15 @@ class ProjectsController < ApplicationController
   end
   # GET /projects
   def index
-    logger.info("@@@@@INDEX!")
-    if params[:portfolio_type].nil? 
-      params[:portfolio_type] ='all'
-    end
-    if params[:portfolio_type] == 'all'
-      @projects = Project.all
+    #logger.info("@@@@@INDEX!")
+    if params[:portfolio_type].blank? 
+      logger.info("@@@@@Port Type is blank!")
+      redirect_to root_url #  params[:portfolio_type] ='all'
+    #end
+    #if params[:portfolio_type] == 'all'
+    #  redirect_to 'root_url'
     else
+      logger.info("@@@@@Port Type is NOT nil!")
       @projects = Project.all(:conditions=>"(portfolio_type = '#{params[:portfolio_type]}')",:include=>:posts)
     end
   end

@@ -3,7 +3,7 @@
 	<br/>
 	<br/>
   <!--p>Welcome <%= current_user.email %></p-->
-  <%= link_to 'Logged In [click to logout]', destroy_user_session_path(:logout =>"logout"), :method => :delete %>
+  <%= link_to "Logged In as #{current_user.email} in #{current_user.role.capitalize} role  -  [click to logout]", destroy_user_session_path(:logout =>"logout"), :method => :delete %>
 <%elsif !params[:controller] == 'devise/sessions' && !params[:action] == 'new'%>
 		<br/>
   	<p>You are not signed in.</p>
