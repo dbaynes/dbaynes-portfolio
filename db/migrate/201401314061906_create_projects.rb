@@ -5,7 +5,7 @@ class CreateProjects < ActiveRecord::Migration
       t.string        :name,          :limit=>40      
       t.string        :timeframe,     :limit=>40      
       t.string        :location,      :limit=>40      
-      t.text          :project_description  
+      t.string        :project_description, :limit=>2000  
       t.timestamps
     end
   end
