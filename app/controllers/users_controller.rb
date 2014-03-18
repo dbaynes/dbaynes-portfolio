@@ -13,8 +13,11 @@ class UsersController < ApplicationController
     @user.role = params[:role]
     logger.info("@@@@@User.role: #{@user.role}")
     if @user.save
-      flash[:success] = "Thank you for signing up!"
-      redirect_to root_url, notice: "Thank you for signing up!"
+      flash[:success] = "Thank you for signing up! Please log in now."
+      #@user.email = " "
+      #@user.password = " "
+      #redirect_to root_url #, notice: "Thank you for signing up!"
+      redirect_to new_user_session_path
     else
       logger.info("@@@@@User not Saved!")
       render "new"
