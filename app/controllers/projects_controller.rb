@@ -30,8 +30,11 @@ class ProjectsController < ApplicationController
     #if params[:portfolio_type] == 'all'
     #  redirect_to 'root_url'
     else
-      logger.info("@@@@@Port Type is NOT nil!")
-      @projects = Project.all(:conditions=>"(portfolio_type = '#{params[:portfolio_type]}')",:include=>:posts)
+      logger.info("@@@@@Port Type is NOT Blank!: #{params[:portfolio_type]}")
+      @conditions = "@@@@@(portfolio_type = '#{params[:portfolio_type]}')"
+      logger.info("@@@@@@Conditions: #{@conditions}")
+      @projects = Project.all(:conditions=> "(portfolio_type = '#{params[:portfolio_type]}')",:include=>:posts)
+      logger.info("@@@@@Query Complete: #{params[:portfolio_type]}")
     end
   end
 
