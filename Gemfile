@@ -18,6 +18,7 @@ gem 'rails_12factor', group: :production
 gem 'pg'   #postgres for Prod
 #gem 'sqlite3' # for dev and test
 
+gem 'oauth'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
