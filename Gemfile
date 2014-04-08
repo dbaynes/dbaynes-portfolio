@@ -12,6 +12,9 @@ gem "minitest-rails-capybara"
 gem 'capybara'
 gem 'turn'
 
+gem 'omniauth-twitter'
+gem 'figaro'
+
 gem 'bcrypt-ruby' # '~> 3.0.0'
 
 gem 'rails_12factor', group: :production

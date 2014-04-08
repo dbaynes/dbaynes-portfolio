@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 201401314061906) do
     t.string   "name",                limit: 40
     t.string   "timeframe",           limit: 40
     t.string   "location",            limit: 40
-    t.text     "project_description"
+    t.string   "project_description", limit: 2000
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -64,6 +64,9 @@ ActiveRecord::Schema.define(version: 201401314061906) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "username"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

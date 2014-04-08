@@ -101,7 +101,7 @@ class ProjectsController < ApplicationController
       params.require(:post).permit(:status,:published,:content)
     end
     def user_params
-      params.require(:user).permit(:email,:role,:users_attributes)
+      params.require(:user).permit(:role,:users_attributes)
     end
     def role_params
       params.require(:role).permit!

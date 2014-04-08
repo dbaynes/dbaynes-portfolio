@@ -87,10 +87,10 @@ class PostsController < ApplicationController
   end
   
   def post_params
-    params.require(:post).permit(:username,:content, :title, :project_id, :status,:published, :projects_attributes)
+    params.require(:post).permit(:email, :username,:content, :title, :project_id, :status,:published, :projects_attributes)
   end
   def project_params
-    params.require(:project).permit(:project_id, :portfolio_type,:title,:timeframe,:location,:project_description,:content,:posts_attributes)
+    params.require(:project).permit(:email, :project_id, :portfolio_type,:title,:timeframe,:location,:project_description,:content,:posts_attributes)
   #Unpermitted parameters: project_id, portfolio_type, title
   end
   
