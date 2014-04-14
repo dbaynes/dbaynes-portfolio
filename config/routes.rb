@@ -1,7 +1,9 @@
 DbaynesPortfolio::Application.routes.draw do
+  resources :comments
+
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},
                      controllers: {omniauth_callbacks: "omniauth_callbacks"}
-  #resources :users
+  resources :users
   resources :posts
   resources :projects
   root :to => 'projects#start'

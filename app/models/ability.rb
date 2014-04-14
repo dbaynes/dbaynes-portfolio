@@ -8,10 +8,11 @@ class Ability
     user ||= User.new  #guest user
     Rails.logger.info("@@@@@User Role in Ability: #{user.role}")
     if user.role == 'admin'
-       Rails.logger.info("@@@@@User Role in Ability is Admin: #{user.role}")
+      Rails.logger.info("@@@@@User Role in Ability is Admin: #{user.role}")
       can :read, :all
       can :create, Project
       can :update, Project
+      can :update, User
       can :create, Post
     elsif 
       user.role == 'editor'

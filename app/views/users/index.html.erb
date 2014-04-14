@@ -1,0 +1,29 @@
+	<h1>Users</h1>
+ 	<table width="100%">
+			  <tr>
+			    <th style="background: #EAEEF2;width:8%;text-align:center"><b>UserName</b></th>
+			    <th style="background: #EAEEF2;width:5%;text-align:center"><b>Email</b></th>
+			    <th style="background: #EAEEF2;width:5%;text-align:center"><b>Role</b></th>
+					<th style="background: #EAEEF2;width:5%;text-align:center"><b>Date Created</b></th>
+					<th style="background: #EAEEF2;width:5%;text-align:center"><b>Last Updated</b></th>
+			  </tr>
+			
+			<% @users.each do |u| %>
+			  <tr>
+				<td style="text-align:left"><%= link_to u.username, :action => 'edit', :id => u %></td>
+				<td style="text-align:left"><%= u.email %></td>
+				<td style="text-align:left"><%= u.role.humanize %></td>
+				<td style="text-align:left"><%= u.created_at.strftime("%m/%d/%Y") %></td>
+				<td style="text-align:left"><%= u.updated_at.strftime("%m/%d/%Y") %></td>
+				<td style="text-align:center">
+					<select style="position:relative;top:0em;left:0em;width:6em;" name="action" id=<%=u.id%> onChange="setaction(<%=u.id%>)">
+						<option value="nada"></option>
+						<option id=<%=u.id %> value="delete">Delete</option>
+					</select>
+				</td>  		    
+			  </tr>
+			</table>
+			<div style="top:0em;left:30em;width:9em;height:8em;-webkit-border-radius: 1px">
+ 		<%= link_to "Back to Portfolio Collection", root_path%>
+	<%end%>
+</div>
