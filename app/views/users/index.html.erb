@@ -12,7 +12,7 @@
 			  <tr>
 				<td style="text-align:left"><%= link_to u.username, :action => 'edit', :id => u %></td>
 				<td style="text-align:left"><%= u.email %></td>
-				<td style="text-align:left"><%= u.role.humanize %></td>
+				<td style="text-align:left"><%= !u.role.nil? ? u.role.humanize.capitalize : '' %></td>
 				<td style="text-align:left"><%= u.created_at.strftime("%m/%d/%Y") %></td>
 				<td style="text-align:left"><%= u.updated_at.strftime("%m/%d/%Y") %></td>
 				<td style="text-align:center">
@@ -22,8 +22,8 @@
 					</select>
 				</td>  		    
 			  </tr>
-			</table>
-			<div style="top:0em;left:30em;width:9em;height:8em;-webkit-border-radius: 1px">
- 		<%= link_to "Back to Portfolio Collection", root_path%>
-	<%end%>
-</div>
+			<%end%>
+	</table>
+			<div style="top:0em;left:30em;width:20em;height:8em;-webkit-border-radius: 1px">
+ 				<%= link_to "Back to Portfolio Collection", root_path%>
+			</div>

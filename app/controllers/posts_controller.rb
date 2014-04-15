@@ -17,6 +17,13 @@ class PostsController < ApplicationController
     logger.info("@@@@@@@project_id: #{@portfolio_type}")
     
   end
+  def show
+    @post = Post.find(params[:id])
+    @commentable = @post
+    @comments = @commentable.comments
+    @comment = Comment.new
+  
+  end
 
   def create
     @project_id = params[:post][:project_id]
@@ -89,6 +96,10 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:email, :username,:content, :title, :project_id, :status,:published, :projects_attributes)
   end
+  def comment_params
+    params.require(:comment).permit(:content,:commentable, :posts_attributes)
+  end
+  
   def project_params
     params.require(:project).permit(:email, :project_id, :portfolio_type,:title,:timeframe,:location,:project_description,:content,:posts_attributes)
   #Unpermitted parameters: project_id, portfolio_type, title

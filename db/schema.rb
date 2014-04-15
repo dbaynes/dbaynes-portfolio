@@ -16,6 +16,23 @@ ActiveRecord::Schema.define(version: 201401314061906) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "comments", force: true do |t|
+    t.text     "content"
+    t.integer  "commentable_id"
+    t.string   "commentable_type"
+    t.string   "author"
+    t.string   "author_url"
+    t.string   "author_email"
+    t.string   "user_ip"
+    t.string   "user_agent"
+    t.string   "referrer"
+    t.boolean  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
+
   create_table "posts", force: true do |t|
     t.integer  "project_id"
     t.string   "username"
