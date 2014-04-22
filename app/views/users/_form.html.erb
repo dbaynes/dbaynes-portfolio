@@ -1,0 +1,28 @@
+<%= form_for(@user) do |f| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<!--%= f.hidden_field :portfolio_type, :value => params[:portfolio_type]%-->
+	<div class="field">
+    <%= f.label :name, "User Name" %><br/>
+    <%= f.text_field :username %>
+  </div>
+  <div class="field">
+    <%= f.label :time_frame, "Email" %><br />
+    <%= f.text_field :email %>
+  </div>
+	<div><b><%= f.label :role %></b><br />
+			<%= f.select :role, {'Admin' => 'admin','Editor' => 'editor','Guest' => 'guest'}, :include_blank => true%>
+	  </div>
+
+  <div class="actions">
+			<%= submit_tag "Update User", :class=>"button" %>
+  </div>
+ <% end %>

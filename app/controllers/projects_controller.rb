@@ -7,7 +7,10 @@ class ProjectsController < ApplicationController
     if user_signed_in?
       logger.info("@@@@@Current User Email: #{current_user.email} Role: current_user.role")
     else
-      logger.info("@@@@@User not signed in!")
+      logger.info("@@@@@User not signed in! ")
+      current_user = User.new
+      current_user.role = 'guest'
+      logger.info("@@@@@User Role Assigned: #{current_user.role}")
     end
     #logger.info("@@@@Referrer:  #{request.referrer} - #{request.fullpath}")
     if current_user.nil?
@@ -23,6 +26,12 @@ class ProjectsController < ApplicationController
   # GET /projects
   def index
     #logger.info("@@@@@INDEX!")
+    #if current_user.nil?
+    #  logger.info("@@@@INDEX: Current user is nil.")
+    #  current_user = User.new
+    #  current_user.role = 'guest'
+    #end
+    
     if params[:portfolio_type].blank? 
       logger.info("@@@@@Port Type is blank!")
       redirect_to root_url #  params[:portfolio_type] ='all'
@@ -30,11 +39,25 @@ class ProjectsController < ApplicationController
     #if params[:portfolio_type] == 'all'
     #  redirect_to 'root_url'
     else
+      
       logger.info("@@@@@Port Type is NOT Blank!: #{params[:portfolio_type]}")
       @conditions = "@@@@@(portfolio_type = '#{params[:portfolio_type]}')"
       logger.info("@@@@@@Conditions: #{@conditions}")
-      @projects = Project.all(:conditions=> "(portfolio_type = '#{params[:portfolio_type]}')",:include=>:posts)
+      #logger.info("@@@@INDEX: Current Role: #{current_user.role}")
+      
+      ##@projects = Project.where(portfolio_type: '#{params[:portfolio_type]}'),include: :posts)
+      #@projects = Project.all(:conditions=> "(portfolio_type = '#{params[:portfolio_type]}')",:include=>:posts)
+      @prof = params[:portfolio_type]
+      @projects = Project.where(portfolio_type: @prof)
       logger.info("@@@@@Query Complete: #{params[:portfolio_type]}")
+      ##if current_user.nil?
+      ##  current_user = User.new
+      ##  current_user.role = 'guest'
+      ##  logger.info("@@@@@User Role Assigned in Index: #{current_user.role}")
+      ##else
+      ##  logger.info("@@@@@@Proj Controller - Current User NOT nil: #{current_user}")
+      ##end
+      ##logger.info("@@@@Referrer:  #{request.referrer} - #{request.fullpath}")
     end
   end
 
@@ -46,8 +69,7 @@ class ProjectsController < ApplicationController
   def new
     @project = Project.new
     @post = Post.new
-    
-  end
+   end
 
   # GET /projects/1/edit
   def edit
@@ -75,7 +97,9 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.update(project_params)
-      redirect_to @project, notice: 'Project was successfully updated.'
+      logger.info("@@@@@Params Portfolio Type: #{params[:project][:portfolio_type]} Hidden: #{params[:project][:portfolio_type]}")
+      #redirect_to projects_path(:portfolio_type =>params[:portfolio_type])#,notice: 'Project was successfully updated'
+      redirect_to :controller => 'projects', :action => 'index',  :portfolio_type => @project.portfolio_type  
     else
       render action: 'edit'
     end
@@ -95,7 +119,7 @@ class ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:status,:posts_attributes,:users_attribut)
+      params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:status,:post_attributes,:users_attributes)
     end
     def post_params
       params.require(:post).permit(:status,:published,:content)
