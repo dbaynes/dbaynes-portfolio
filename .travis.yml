@@ -4,7 +4,7 @@ rvm:
 addons:
   postgresql: "9.3"
 before_script:
-  - cp config/database.travis.yml config/database.yml
+  #- cp config/database.travis.yml config/database.yml
   - psql -c 'create database uw_ruby_cert;' -U postgres
 script:
   - RAILS_ENV=test bundle exec rake db:migrate --trace
