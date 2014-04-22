@@ -53,6 +53,22 @@ Experience and expertise gained here will be applied to the class project Kluste
 	-	can add projects
 	-	username: admin@admin.com
 	-	pw: admin
+	
+### Roles:
+	- Admin: 
+		- Can see everything
+		- Can Create Project
+		- Can Edit and Delete Project
+		- Has Users tab to edit user
+		- Can add/change roles
+		- Can delete users
+	- Editor
+ 		- Can approve posts
+		- Can approve comments
+	- Guest
+		- Can post
+		- Can comment on posts
+		- Can see only approved comments and posts
 
 Team Project:
 	-	Project conception where idea for an application was developed. 

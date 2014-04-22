@@ -10,7 +10,7 @@ class PostsController < ApplicationController
     if user_signed_in?
       @author = current_user.email
     else
-      @author = "Guest"
+      @author = "Default Guest"
     end
     
     logger.info("@@@@@@@project_id: #{@project_id}")
@@ -66,7 +66,7 @@ class PostsController < ApplicationController
     @project = @post.project
     logger.info("@@@@@@test: #{@project.portfolio_type}")
     logger.info("@@@@@post: #{@post.project_id}")
-    logger.info("@@@@@@post.Title: #{@post.title}")
+    logger.info("@@@@@@post.title: #{@post.title}")
     logger.info("@@@@@@post.status: #{@post.status}")
     logger.info("@@@@@@post.username: #{@post.username}")
     logger.info("@@@@@@post.project_id: #{@post.project_id}")
@@ -74,7 +74,7 @@ class PostsController < ApplicationController
     logger.info("@@@@@@portfolio_type:  = #{@project.portfolio_type}")
     
     @post.username = current_user.email
-    @post.title = params[:post][:title]
+    #@post.title = params[:post][:title]
     if @post.status == "Unpublished"
       @post.status = "Published"
     elsif @post.status == "Published"
@@ -83,7 +83,7 @@ class PostsController < ApplicationController
       @post.status = "Unpublished"
     end
       
-    logger.info("@@@@@Post Status: #{@post.status}")
+    logger.info("@@@@@Post Status: #{@post.status} for #{@post.title}")
      
     ##@post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
     

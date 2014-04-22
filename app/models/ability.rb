@@ -5,30 +5,29 @@ class Ability
   def initialize(user)
     # Define abilities for the passed in user here. For example:
     #
-    user ||= User.new  #guest user
+    user ||= User.new(:role=>"guest")  #guest user
     Rails.logger.info("@@@@@User Role in Ability: #{user.role}")
     if user.role == 'admin'
       Rails.logger.info("@@@@@User Role in Ability is Admin: #{user.role}")
       can :read, :all
       can :create, Project
       can :update, Project
-      can :update, User
       can :create, Post
+      can :update, User
     elsif 
       user.role == 'editor'
-      Rails.logger.info("@@@@@User Role in Ability is Editor: #{user.role}")
+        Rails.logger.info("@@@@@User Role in Ability is Editor: #{user.role}")
         can :read, :all
         can :create, Post 
         can :update, Post
         can :update, Project 
      elsif user.role == 'guest'
-      Rails.logger.info("@@@@@User Role in Ability is Guest: #{user.role}")
-            can :read, :all
-            can :create, Post 
-    else
-      Rails.logger.info("@@@@@User Role in Ability is Default Guest: #{user.role}")
-      can :read, :all
-      can :create, Post 
+        Rails.logger.info("@@@@@User Role in Ability is Guest: #{user.role}")
+        #can :read, :all
+        #can :read, Project
+         can :read, Post
+        can :create, Post 
+        can :create, Comment 
     end 
     
        #user ||= User.new # guest user (not logged in)

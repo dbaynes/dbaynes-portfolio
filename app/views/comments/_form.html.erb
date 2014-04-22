@@ -9,10 +9,18 @@
 			</ul>
 		</div>
 	<%end%>
+	<div class"field">
+		<%= f.hidden_field :portfolio_type, :value => params[:portfolio_type]%>
+		<!--%=@commentable.content%-->
+	</div>	
+	<br>
+	<br>
+	
 		<div class"field">
 			<%=f.text_area :content, rows: 8 %>
 		</div>	
 		<div class="actions">
-			<%=f.submit %>
+			<%=f.submit "Create Comment", :test=>'test',:class=>"button" %> <!--:portfolio_type => params[:portfolio_type], :class=>"button" %-->
+			
 		</div>
 <%end%>

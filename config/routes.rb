@@ -6,8 +6,12 @@ DbaynesPortfolio::Application.routes.draw do
   resources :users
   resources :posts do
     resources :comments
+    resources :projects
   end
-  resources :projects
+  resources :projects do
+    resources :comments
+  end  
+    
   root :to => 'projects#start'
   #root :to => 'devise/sessions#new'
   #devise_scope :user do

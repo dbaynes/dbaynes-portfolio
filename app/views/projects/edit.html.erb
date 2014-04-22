@@ -2,5 +2,6 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @project %> |
+<%= link_to 'Show', project_path(@project,:portfolio_type => params[:portfolio_type]) %> |
+
 <%= link_to 'Back', projects_path %>
