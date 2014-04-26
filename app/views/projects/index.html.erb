@@ -45,8 +45,7 @@ function changePublishStatus(form){
 									#0B6121  - green
 									#C31E2D  - red
 							-->		
-									
-			 			 	<td style="text-align: left;"><b style="color:#08088A">Previous Posts:</b></td>
+				 			<td style="text-align: left;"><b style="color:#08088A">Previous Posts:</b></td>
 							<td></td>
 			 			</tr>
 						<tr>
@@ -54,59 +53,61 @@ function changePublishStatus(form){
 			 			 	<td style="text-align: center; style=color:#0B6121"><b style="color:#08088A">Post Content</b></td>
 			 			</tr>
 						<%@posts.each do |post| %>
-							<% if can? :read, Post %> 
+							<%# if can? :read, Post %> 
+							<%@current_user = ''%>
+							<% if current_user %>
+							  <%=logger.info("@@@@@@USER ROLE: #{current_user.role}")%>
+							  <%@current_user = current_user.role%>
+							<%else%>
+								<%@current_user = 'guest'%>
+							<%end%>	
+						  <%if @current_user == 'guest'%>
+								<%=logger.info("@@@@@@CAN READ ONLY (besides add)POST")%>
 								<% if post.status_published?%>
-								<%=logger.info("@@@@@Post Status #{post.status_published?}")%>	
-							 	<%= render 'posts/post', post: post %>
-								<% @comments = Comment.find(:all, :conditions => "commentable_type = 'Post' AND commentable_id = #{post.id}" )%>
-								<% @comments.each do |c| %>
-									<tr>
-										<td style="color:#08088A" colspan="2"><b>Comment: </b><%= c.content%></td>
-									</tr>
-								<%end%>		
+									<%=logger.info("@@@@@Post Status #{post.status_published?}")%>	
+									<%= render 'posts/post', post: post %>
+									<% @comments = Comment.find(:all, :conditions => "commentable_type = 'Post' AND commentable_id = #{post.id}" )%>
+									<%= render 'comments/comments', comments: @comment %>
 									<tr>
 									 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
 									</tr>
-							<%else%>
-								<tr>
-									<td style="color:#08088A"><%=post.title%></td>
-									<td style="color:#08088A"><%=post.content%></td>
-								</tr>
-								
-								<tr>
-									<td style="color:#08088A"><b>Post Status!: </b><%= post.status%></td>
-									<td style="color:#08088A"><b>Posted By: <%= post.username%></b></td>
-								</tr>
-								<% @comments = Comment.find(:all, :conditions => "commentable_type = 'Post' AND commentable_id = #{post.id}" )%>
-								<% @comments.each do |c| %>
-									<tr>
-										<td style="color:#08088A" colspan="2"><b>Comment: </b><%= c.content%></td>
-									</tr>
+								<%else%>
+									<%=logger.info("@@@@@@POST NOT PUBLISHED")%>
 								<%end%>	
-								<tr>
-								 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
-								</tr>
-									
-								
-								<% if can? :update, Post %>
-										<%=form_for (post) do |f| %>
-											<%if post.status_published?%>
-												<td style="color:#08088A"><b>Un-Publish Post?</b>&nbsp;&nbsp;<%= f.check_box :published, :checked_value => "0",:onchanget=>"changePublishStatus(this);" %></td>
-												<td style="color:#08088A"><b> <%= button_to "Change to Un-Published", edit_post_path(post,p)%></b></td>
-											<%else%>
-												<td style="color:#C31E2D"><b>Publish Post?</b>&nbsp;&nbsp;<%= f.check_box :published,:checked_value => "1", :onchange=>"changePublishStatus(this);" %></td>
-												<td style="color:#C31E2D"><b> <%= button_to "Change to Published", edit_post_path(post,p)%></b></td>
-											<%end%>
-										<%end%>	
-										</tr>
-								<%end%> 
-								
-								<tr>
-								 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
-								</tr>
-									<%end%>	
-							<%end%>
-						<%end%>
+							<%else%>
+	 							<tr>
+	 								<td style="color:#08088A"><%=post.title%></td>
+	 								<td style="color:#08088A"><%=post.content%></td>
+	 							</tr>
+	 							
+	 							<tr>
+	 								<td style="color:#08088A"><b>Post Status: </b><%= post.status%></td>
+	 								<td style="color:#08088A"><b>Posted By: <%= post.username%></b></td>
+	 							</tr>
+	 							<% @comments = Comment.find(:all, :conditions => "commentable_type = 'Post' AND commentable_id = #{post.id}" )%>
+								<%= render 'comments/comments', comments: @comment %>
+	 							<tr>
+	 							 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+	 							</tr>
+							<%end%>		
+							 	<!-- NOT GUEST -->
+	 						<% if can? :update, Post %>
+							 	 <%=logger.info("@@@@@CAN UPDATE POST - ROLE: #{current_user.role}")%>
+	 						 	 <%=form_for (post) do |f| %>
+	 						 	 		<%if post.status_published?%>
+	 						 	 			<td style="color:#08088A"><b>Un-Publish Post?</b>&nbsp;&nbsp;<%= f.check_box :published, :checked_value => "0",:onchanget=>"changePublishStatus(this);" %></td>
+	 						 	 			<td style="color:#08088A"><b> <%= button_to "Change to Un-Published", edit_post_path(post,p)%></b></td>
+	 						 	 		<%else%>
+	 						 	 			<td style="color:#C31E2D"><b>Publish Post?</b>&nbsp;&nbsp;<%= f.check_box :published,:checked_value => "1", :onchange=>"changePublishStatus(this);" %></td>
+	 						 	 			<td style="color:#C31E2D"><b> <%= button_to "Change to Published", edit_post_path(post,p)%></b></td>
+	 						 	 		<%end%>
+	 						 	 <%end%>	
+	 						 	 </tr>
+	 						<%end%> 
+							<!--tr>
+							 	<td colspan="2" style="text-align: center"><b><%#= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+							</tr-->
+						 <%end%>
 			<%end %>
 		 	<!--%if can? :create, Post %-->
 				<tr>
@@ -117,15 +118,19 @@ function changePublishStatus(form){
 			<% if can? :update, Project %>
 	     	 <tr>
 	     	   <td><b><%= link_to 'Edit Project', edit_project_path(p,:portfolio_type => params[:portfolio_type]) %></td>
-	     	   <td><b><%= link_to 'Delete Project', p, method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
-	      	</tr>
+	     	   <%if can? :destroy, Project %>
+							<td><b><%= link_to 'Delete Project', p, :portfolio_type => params[:portfolio_type], method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
+	      	 <%else%>
+							<td>&nbsp;</td>
+						<%end%>
+					</tr>
 			<%end%>
     <% end %>
   </tbody>
 </table>
 
 	<% if can? :create, Project%>
-		<%= link_to "New #{params[:portfolio_type].capitalize} Project", new_project_path(:portfolio_type=> "#{params[:portfolio_type]}") %> |
+		<%= link_to "New #{params[:portfolio_type].capitalize} Project", new_project_path(:portfolio_type=> "#{params[:portfolio_type]}",remote: true,id: :new_link) %> |
 		<%= link_to "Back to Portfolio Collection", root_path%>
 	<%else%>
 		<%= link_to "Back to Portfolio Collection", root_path%>

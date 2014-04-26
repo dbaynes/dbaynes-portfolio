@@ -12,7 +12,10 @@ class Ability
       can :read, :all
       can :create, Project
       can :update, Project
+      can :destroy, Project
       can :create, Post
+      can :delete, Post
+      can :update, Post
       can :update, User
     elsif 
       user.role == 'editor'
@@ -25,7 +28,7 @@ class Ability
         Rails.logger.info("@@@@@User Role in Ability is Guest: #{user.role}")
         #can :read, :all
         #can :read, Project
-         can :read, Post
+        can :read, Post
         can :create, Post 
         can :create, Comment 
     end 
