@@ -62,10 +62,11 @@ class ProjectsController < ApplicationController
       format.js do
         #binding.pry
         unless @project.save
-           render text: @project.errors.full_messages.join,
+          render text: @project.errors.full_messages.join,
           status: :unprocessable_entity
         end
-         flash[:success] = "#{params[:portfolio_type].capitalize} Project was successfully created."
+          @result = 'Project was successfully created!'
+          #flash[:success] = "#{params[:portfolio_type].capitalize} Project was successfully created."
       end
     end
   end
@@ -73,7 +74,9 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   def update
     if @project.update(project_params)
-      redirect_to @project, notice: 'Project was successfully updated.'
+      @result = 'Project was successfully updated!'
+      #redirect_to @project, notice: 'Project was successfully updated.'
+      #flash[:success] = "#{params[:portfolio_type].capitalize} Project was successfully updated."
     else
       render :update
     end
@@ -94,15 +97,19 @@ class ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
+      logger.info("@@@@@@project-params")
       params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:status,:post_attributes,:users_attributes)
     end
     def post_params
+      logger.info("@@@@@@post-params")
       params.require(:post).permit(:status,:published,:content)
     end
     def user_params
+      logger.info("@@@@@@user-params")
       params.require(:user).permit(:role,:users_attributes)
     end
     def role_params
+      logger.info("@@@@@@role-params")
       params.require(:role).permit!
     end
 

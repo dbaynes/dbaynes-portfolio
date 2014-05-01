@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_filter :load_commentable
+  load_and_authorize_resource
   def index
     #@commentable = Post.find(params[:post_id])  see before_filter
     @comments = @commentable.comments
@@ -9,9 +10,15 @@ class CommentsController < ApplicationController
     logger.info("@@@@@Controller Params Project Type: #{params[:portfolio_type]}")
   end
   def create
+    logger.info("@@@@@Controller Params CREATE Project Type: #{params[:comment][:portfolio_type]}")
     
     @comment = @commentable.comments.new(params[:comment])
-    
+    @comment.approved = false
+    if current.user?
+      @comment.author = current_user.email
+    else
+      @comment.author = 'guest'  # you must sign in to comment.
+    end
     if @comment.save
       #redirect_to [@commentable, :comments], notice: "Comment created"
       redirect_to @commentable, :portfolio_type => params[:portfolio_type], notice: "Comment created"
@@ -23,10 +30,8 @@ class CommentsController < ApplicationController
   
   private
   def comment_params
-    params.require(:comment).permit(:content, :projects_attributes,:posts_attributes)
-  end
-  def project_params
-     params.require(:project).permit(:portfolio_type,:name,:timeframe,:location,:project_description,:content,:status,:post_attributes,:users_attributes)
+    logger.info("@@@@@@comment-params")
+    params.require(:comment).permit(:content, commentable_attributes: [:portfolio_type])#_attributes,:posts_attributes)
   end
 
   #def load_commentable

@@ -20,6 +20,8 @@ class UsersController < ApplicationController
     logger.info("@@@@@User_params: #{params[:user][:email]}")
     logger.info("@@@@@Role param : #{params[:role]}")
     logger.info("@@@@@User.email: #{@user.email}")
+    logger.info("@@@@@User.Username: #{@user.username}")
+    logger.info("@@@@@Params.Username: #{params[:username]}")
     @user.role = params[:role]
     logger.info("@@@@@User.role: #{@user.role}")
     if @user.save
@@ -40,6 +42,12 @@ class UsersController < ApplicationController
   def index
     @users = User.all
   end
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path, notice: 'User was successfully destroyed.'
+  end
+  
   
   private
   def user_params

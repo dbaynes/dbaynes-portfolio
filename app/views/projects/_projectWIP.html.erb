@@ -1,0 +1,24 @@
+<article class="project" id="<%= dom_id(project) %>">
+ 	<p id="notice"><%= notice %></p>
+
+	<p>
+		<b>Title:</b>
+	  <%= project.name %>
+	</p>
+	<p>
+		<b>Time Frame:</b>
+	   <%= project.timeframe %>
+	</p>
+	<p>
+		<b>Location:</b>
+	   <%= project.location %>
+	</p>
+	<p>
+		<b>Technologies Used</b>
+	  <%= project.project_description %>
+	</p>  <div class="nav">
+    <%= link_to 'Show', project %> |
+    <%= link_to 'Edit', edit_project_path(project) %> |
+    <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>
+  </div>
+</article>

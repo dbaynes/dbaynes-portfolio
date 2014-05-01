@@ -1,8 +1,10 @@
 <div id="comments">
 	<%@comments.each do |comment| %>
-		<div class="comment">
-			<%=simple_format comment.content %>
-		</div>
+			<tr>
+				<td ><%=comment.author %> </td>
+				<td ><%=comment.content %></td>
+
+			</tr>
 	<%end%>
 </div>
 <!-- one way -->

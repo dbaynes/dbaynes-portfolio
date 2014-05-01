@@ -26,18 +26,6 @@
     <%= f.label :project_description, "Project Description" %><br />
     <%= f.text_area :project_description %>
   </div>
-  <p id="success">     </p>
-  <script type='text/javascript'>
-   //<![CDATA[
-	alert("KJLKJLKJ");
-  jQuery(document).ready(function () { 
-		alert("KJLKJLKJ");
-    jQuery('#success').('#flash').html(<%= flash[:notice].to_json %>);
-  });
-  //]]>
- </script>
-
-
   <div class="actions">
 		<% if params[:action] == 'new'%>
   	  <%= submit_tag "Create Project", :portfolio_type => params[:portfolio_type],:class=>"button" %>

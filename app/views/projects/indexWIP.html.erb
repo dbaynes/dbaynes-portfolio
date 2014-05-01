@@ -1,0 +1,20 @@
+<%case params[:portfolio_type].capitalize
+	 when  'Education'%>
+		<h1>Education</h1>
+	 <%when  'Arts'%>
+		<h1>Arts</h1>
+	 <%when  'Athletics'%>
+		<h1>Athletics</h1>
+	 <%when  'Recreational'%>
+		<h1>Recreational</h1>
+	 <%when  'Professional'%>
+		<h1>Professional</h1>
+	<%else%>
+	  <h1>All Projects</h1>
+<%end%>
+
+<section id="projects">
+  <%= render @projects %>
+</section>
+<br />
+<%= link_to 'New project', new_project_path, remote: true, id: :new_link %>

@@ -10,6 +10,7 @@ gem "minitest-rails"
 gem "minitest-matchers"
 gem "minitest-rails-capybara"
 gem 'capybara'
+gem 'poltergeist'
 gem 'turn'
 
 gem 'omniauth-twitter'
@@ -23,7 +24,7 @@ gem 'bcrypt-ruby' # '~> 3.0.0'
 gem 'rails_12factor', group: :production
 gem 'pg'   #postgres for Prod
 #gem 'sqlite3' # for dev and test
-
+gem 'quiet_assets', :group => :development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -62,4 +63,4 @@ gem 'turbolinks'
 # To use debugger
 # gem 'ruby-debug'
 
-ruby "2.1.0"
+#ruby "2.1.0"

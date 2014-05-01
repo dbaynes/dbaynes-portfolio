@@ -65,9 +65,11 @@ Experience and expertise gained here will be applied to the class project Kluste
 	- Editor
  		- Can approve posts
 		- Can approve comments
-	- Guest
+	- User
 		- Can post
 		- Can comment on posts
+		- Can see only approved comments and posts
+	- Guest
 		- Can see only approved comments and posts
 
 Team Project:

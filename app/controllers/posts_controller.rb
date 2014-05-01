@@ -92,6 +92,13 @@ class PostsController < ApplicationController
       redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
     end
   end
+  # DELETE /posts/1
+  def destroy
+    @portfolio_type = params[:portfolio_type]
+    logger.info("@@@@@@POSTS DESTROY - Portfolio: #{params[:portfolio_type]}")
+    @post.destroy
+    redirect_to projects_path(:portfolio_type =>@portfolio_type), notice: 'Post was successfully destroyed.'
+  end
   
   def post_params
     params.require(:post).permit(:email, :username,:content, :title, :project_id, :status,:published, :projects_attributes)

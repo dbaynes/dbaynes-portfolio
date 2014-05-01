@@ -15,6 +15,7 @@ module DbaynesPortfolio
         g.test_framework :mini_test, :spec => true, :fixture => false
       end
       I18n.enforce_available_locales = false
+      config.quiet_assets = true
       # Settings in config/environments/* take precedence over those specified here.
       # Application configuration should go into files in config/initializers
       # -- all .rb files in that directory are automatically loaded.

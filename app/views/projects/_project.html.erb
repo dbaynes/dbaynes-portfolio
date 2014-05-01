@@ -1,22 +1,9 @@
-<p>
-	<b>Title:</b>
-  <%= @project.name %>
-</p>
-<p>
-	<b>Time Frame:</b>
-   <%= project.timeframe %>
-</p>
-<p>
-	<b>Location:</b>
-   <%= project.location %>
-</p>
-<p>
-	<b>Project Description</b>
-  <%= project.project_description %>
-</p>
 
 
-<p><%= link_to "Link to New Project: #{project.name}", project %></p>
+<p id="result" style="font-size:16px;color:blue"><%=@result%></p>
+
+
+<p><%= link_to "Link to Project: #{project.name}", project %></p>
 
 
 		
