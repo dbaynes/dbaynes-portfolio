@@ -76,6 +76,7 @@ Team Project:
 	-	Built initial scaffolding and initial proof of concept for paperclip gem selection
 	-	Created initial document model 
 	-	Added CRUD for document model 
+	- Added Polymorphic Comments to application - Collaborated with Adam Hendricksen
 
 =======
 
