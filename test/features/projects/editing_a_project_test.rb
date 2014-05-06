@@ -1,7 +1,7 @@
 require "test_helper"
 
 feature "Editing A Project - Validate Show Action" do
-  scenario "Edit - 01 - submit updates to an existing project" do
+  scenario "Edit - 01 - Create new project for professional portfolio" do
     sign_in(:admin)
     visit '/projects?portfolio_type=professional' 
     page.text.must_include "New Professional Project"
@@ -16,12 +16,20 @@ feature "Editing A Project - Validate Show Action" do
     click_on "Create Project"
     #visit '/projects?portfolio_type=professional' 
     page.text.must_include "Project was successfully created"  
-    page.text.must_include "Edit Project"
-    click_on "Edit Project"
+    #page.text.must_include "Edit Project"
+ end   
+ scenario "Edit - 02 - submit updates to an existing project" do
+    sign_in(:admin)
+    #visit '/projects?portfolio_type=professional' 
+    visit edit_project_path(projects(:project_7))
+    #visit edit_project_path(projects(:portfolio,portfolio_type='Professional'))
+    # needs fixture portfolio for fixture set 'projects'
+    #visit '/projects/(:portfolio)/edit?portfolio_type=professional'
+    #works - click_on "New Professional Project"
     page.text.must_include "Editing"
     fill_in "Time Frame", with: "Spring 2014"
     click_on "Update Project"
-    visit '/projects?portfolio_type=professional' 
+    page.text.must_include "Project was successfully updated."
     page.text.must_include "Spring 2014"
     #redirect to show
     #page.text.must_include "successfully"

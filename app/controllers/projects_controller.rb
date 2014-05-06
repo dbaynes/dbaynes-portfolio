@@ -75,7 +75,7 @@ class ProjectsController < ApplicationController
   def update
     if @project.update(project_params)
       @result = 'Project was successfully updated!'
-      #redirect_to @project, notice: 'Project was successfully updated.'
+      redirect_to @project, notice: 'Project was successfully updated.'
       #flash[:success] = "#{params[:portfolio_type].capitalize} Project was successfully updated."
     else
       render :update

@@ -11,12 +11,10 @@ class UserPolicy < ApplicationPolicy
     user.editor? if user
   end
   def update?
-    puts "@@@@@@@@@@User Update: User Admin? #{user.admin?}"
     user.admin? if user
   end
   def create?
-    puts "@@@@@@@@@@User Create: User admin? #{user.admin?}"
-    user.admin? if user
+     user.admin? if user
   end
   
 

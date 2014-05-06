@@ -14,7 +14,7 @@ feature "As the site owner, I want to add a portfolio and projects so that I can
     #page.text.must_include "Project has been created"
     #page.text.must_include "Code Fellows Portfolio"
     ##Users :create, user: {role: 'admin'}
-    page.text.must_include "Create a New Portfolio Type"
+    page.text.must_include "Customize Portfolio"
    end
 scenario "adding a new project" do
    #Xvisit projects_path

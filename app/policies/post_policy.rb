@@ -37,10 +37,8 @@ class PostPolicy #< Struct.new(:user, :post)
       elsif user.present? && user.author? 
         scope.where(author_id: user.id) | scope.published
       elsif user.present? && user.member? 
-        puts "@@@@@@MEMBER IN RESOLVE:"
         scope.where(author_id: user.id) #| scope.all
       else
-        puts "@@@@@Resolve ELSE in Post Policy"
         scope.where(published: true)
       end
     end

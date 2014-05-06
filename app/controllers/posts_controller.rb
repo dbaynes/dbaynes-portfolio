@@ -30,10 +30,10 @@ class PostsController < ApplicationController
     @portfolio_type = params[:post][:portfolio_type]
     
     @post = Post.new(post_params)
-    @project = @post.project ##@project = Project.where(:id => "#{@project_id}").first 
+    @project = @post.project #@project = Project.where(:id => "#{@project_id}").first 
     logger.info("@@@@@@post.Title: #{@post.title}")
     logger.info("@@@@@@post.status: #{@post.status}")
-    logger.info("@@@@@portfolio_type: #{@project.portfolio_type}")
+    #logger.info("@@@@@portfolio_type: #{@project.portfolio_type}")
     ##@post = params[:post] 
     if user_signed_in?
       @post.username = current_user.email
@@ -44,7 +44,7 @@ class PostsController < ApplicationController
     @post.status = "Unpublished"
     logger.info("@@@@@Post Status: #{@post.status}")
     @post.author_id = current_user.id 
-    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, author_id: @post.author_id, status: @post.status )
+    @post = @project.post.create(username: @post.username, title: @post.title, content: @post.content, author_id: @post.author_id, status: @post.status )
     
     if @post.save
       flash[:success] = "Post was successfully created."
