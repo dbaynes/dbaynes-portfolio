@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 gem 'devise'
 gem 'cancan'
+gem 'pundit'  #awesome policy management - beats cancan.
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'foundation-rails'
@@ -15,6 +16,9 @@ gem 'turn'
 
 gem 'omniauth-twitter'
 gem 'figaro'
+
+gem 'carrierwave'
+gem 'mini_magick'
 
 gem 'pry'
 gem "mongoid"  #, "~> 3.1.6"

@@ -8,13 +8,32 @@ class CommentsController < ApplicationController
   def new
     @comment = @commentable.comments.new
     logger.info("@@@@@Controller Params Project Type: #{params[:portfolio_type]}")
+    logger.info("@@@@@@Params Post: #{@commentable.content}")
   end
+  def edit
+    #@post = Post.find(params[:id])
+    @comment = @commentable.comments.find(params[:id])
+  end
+  def update
+    #@post = Post.find(params[:id])
+    @comment = @commentable.comments.find(params[:id])
+    if @comment.approved == false
+      @comment.approved = true
+    else
+      @comment.approved = false
+    end  
+      if @comment.save
+        flash[:success] = "Comment was successfully updated."
+        redirect_to projects_path(:portfolio_type =>"#{params[:portfolio_type]}")
+      end
+   end
+  
   def create
     logger.info("@@@@@Controller Params CREATE Project Type: #{params[:comment][:portfolio_type]}")
     
     @comment = @commentable.comments.new(params[:comment])
     @comment.approved = false
-    if current.user?
+    if current_user.present?
       @comment.author = current_user.email
     else
       @comment.author = 'guest'  # you must sign in to comment.

@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pundit
   protect_from_forgery
   before_filter :configure_permitted_parameters, if: :devise_controller?
   
@@ -17,7 +18,7 @@ class ApplicationController < ActionController::Base
   
   protected
   def configure_permitted_parameters
-     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :username, :role, :password, :password_confirmation, :remember_me)}#, roles: [:author,:editor,:visitor]) }
+     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:email, :username, :role, :password, :password_confirmation, :remember_me, roles: [:author,:editor,:member,:guest]) }
   end
   #protected
   #

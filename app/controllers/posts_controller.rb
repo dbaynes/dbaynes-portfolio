@@ -43,8 +43,8 @@ class PostsController < ApplicationController
     @post.title = params[:post][:title]
     @post.status = "Unpublished"
     logger.info("@@@@@Post Status: #{@post.status}")
-     
-    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
+    @post.author_id = current_user.id 
+    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, author_id: @post.author_id, status: @post.status )
     
     if @post.save
       flash[:success] = "Post was successfully created."
@@ -73,14 +73,19 @@ class PostsController < ApplicationController
     #@project = Project.where(:id => "#{@post.project_id}").first 
     logger.info("@@@@@@portfolio_type:  = #{@project.portfolio_type}")
     
-    @post.username = current_user.email
+    if current_user.role != 'editor'
+      @post.username = current_user.email
+    end
     #@post.title = params[:post][:title]
     if @post.status == "Unpublished"
       @post.status = "Published"
+      @post.published = true
     elsif @post.status == "Published"
       @post.status = "Unpublished"
+      @post.published = false
     else
       @post.status = "Unpublished"
+      @post.published = false
     end
       
     logger.info("@@@@@Post Status: #{@post.status} for #{@post.title}")
@@ -88,7 +93,7 @@ class PostsController < ApplicationController
     ##@post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
     
     if @post.save
-      flash[:success] = "Post was successfully created."
+      flash[:success] = "Post was successfully updated."
       redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
     end
   end

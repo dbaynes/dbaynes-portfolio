@@ -1,11 +1,33 @@
 <div id="comments">
+	<tr><td><table width="200%;">
+	<tr><th>Author</th><th>Says</th></tr>	
+	
 	<%@comments.each do |comment| %>
-			<tr>
-				<td ><%=comment.author %> </td>
-				<td ><%=comment.content %></td>
-
-			</tr>
+			<% if comment.approved?  || (user_signed_in? && current_user.email = comment.author) || (user_signed_in? && policy(comment).update?) %>
+			<%#=logger.info("@@@@@@Approved: #{comment.approved} Author: #{comment.author} User: #{current_user.email}")%>
+			<%#if policy(comment).show? %>
+				<tr>
+					<td><%=comment.author %> </td>
+					<td><%=comment.content %></td>
+				</tr>
+			<%end%>
+			
+			<%if user_signed_in? && policy(comment).update?%>
+					<tr>
+						<th>Status</th>
+						<th>Approve/Unapprove</th>
+					</tr>
+						<td><%if comment.approved?%>Approved<%else%>UnApproved<%end%></td>
+						<td><b><u><%=link_to "Change Comment Approval", post_comment_path(comment, comment,:portfolio_type=>params[:portfolio_type]),:method=>"put"%></u></b></td>
+		 <%else%>
+		 	<td></td>
+		 <%end%>
+					
+				
+			</tr-->
 	<%end%>
+	</table></td></tr>
+	
 </div>
 <!-- one way -->
 <!--p><!%= link_to "New Comment", new_post_comment_path(@commentable)%></p-->

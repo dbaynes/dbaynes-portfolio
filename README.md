@@ -62,6 +62,10 @@ Experience and expertise gained here will be applied to the class project Kluste
 		- Has Users tab to edit user
 		- Can add/change roles
 		- Can delete users
+		- Can add portfolio type where image is uploaded.
+			A link will be available to admin after login on the Start Page to 'Customize' the portfolio, add new projects 
+			and upload an image.
+		
 	- Editor
  		- Can approve posts
 		- Can approve comments
@@ -71,7 +75,13 @@ Experience and expertise gained here will be applied to the class project Kluste
 		- Can see only approved comments and posts
 	- Guest
 		- Can see only approved comments and posts
-
+Notes on Comments:
+	- If signed in, add a comment option is ready for a post
+	- Must be logged in to comment
+	- Can delete only your own comment
+	- Can see your comment whether approved or not
+	- Editor can approve/unapprove comments for public view (readonly)
+	- Editor can delete comments
 Team Project:
 	-	Project conception where idea for an application was developed. 
 	-	made gem determination for uploading documents 

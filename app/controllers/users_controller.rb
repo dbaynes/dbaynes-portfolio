@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :require_no_authentication, :only => [:new, :create]
   def new
     logger.info("@@@@@User New")
     @user = User.new
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
       #@user.email = " "
       #@user.password = " "
       #redirect_to root_url #, notice: "Thank you for signing up!"
-      redirect_to new_user_session_path
+      redirect_to root_url #new_user_session_path
     else
       logger.info("@@@@@User not Saved!")
       render "new"
