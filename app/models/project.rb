@@ -1,5 +1,5 @@
 class Project < ActiveRecord::Base
-  belongs_to :portfolios
+  belongs_to :portfolio
   has_many :posts, dependent: :destroy
   has_many :comments, as: :commentable
   
