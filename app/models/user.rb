@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   #has_many :posts, foreign_key: "username"
   devise :database_authenticatable, :registerable, :omniauthable,
          :recoverable, :rememberable, :trackable, :validatable
+  ###has_many :posts, foreign_key: "admin_id"
   #has_many :projects       
   ###has_secure_password
  
@@ -15,7 +16,23 @@ class User < ActiveRecord::Base
   
   #scope :with_role, lambda { |role| {:conditions => "roles_mask & #{2**ROLES.index(role.to_s)} > 0"} }
   #
-  ROLES = %w[admin editor guest]
+  def author?
+ 	  role == 'author'
+  end  
+  def admin?
+ 	  role == 'admin'
+  end  
+  def editor?
+ 	  role == 'editor'
+  end  
+  def member?
+ 	  role == 'member'
+  end  
+  def guest?
+ 	  role == 'guest'
+  end  
+  
+  ROLES = %w[admin editor member guest]
   
   def roles=(roles)
      self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum

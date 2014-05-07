@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.2'
 gem 'devise'
 gem 'cancan'
+gem 'pundit'  #awesome policy management - beats cancan.
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'foundation-rails'
@@ -10,17 +11,24 @@ gem "minitest-rails"
 gem "minitest-matchers"
 gem "minitest-rails-capybara"
 gem 'capybara'
+gem 'poltergeist'
 gem 'turn'
 
 gem 'omniauth-twitter'
 gem 'figaro'
+
+gem 'carrierwave'
+gem 'mini_magick'
+
+gem 'pry'
+gem "mongoid"  #, "~> 3.1.6"
 
 gem 'bcrypt-ruby' # '~> 3.0.0'
 
 gem 'rails_12factor', group: :production
 gem 'pg'   #postgres for Prod
 #gem 'sqlite3' # for dev and test
-
+gem 'quiet_assets', :group => :development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
@@ -59,4 +67,4 @@ gem 'turbolinks'
 # To use debugger
 # gem 'ruby-debug'
 
-ruby "2.1.0"
+#ruby "2.1.0"

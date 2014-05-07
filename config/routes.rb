@@ -1,4 +1,6 @@
 DbaynesPortfolio::Application.routes.draw do
+  resources :portfolios
+
   resources :comments
 
   devise_for :users, path_names: {sign_in: "login", sign_out: "logout"},

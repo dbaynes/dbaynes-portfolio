@@ -1,0 +1,21 @@
+ 
+<% if post.status_published?%>
+	 <tr>
+	 	<td style="text-align: left;"><b style="color:#08088A">Previous Posts:</b></td>
+	 </tr>
+	 <tr>
+	 	<td style="color:#08088A"><b>Post Title</b></td>
+	 	<td style="color:#08088A"><b>Post Content</b></td>
+	 </tr>
+   
+	 <tr>
+	 	<td style="color:#08088A"><%=post.title%></td>
+	 	<td style="color:#08088A"><%=post.content%></td>
+	 </tr>
+	 <tr>
+	 	<td style="color:#08088A"><b>Post Status: </b><%= post.status%></td>
+	 	<td style="color:#08088A"><b>Posted By: <%= post.username%></b></td>
+	 </tr>
+<%else%>
+	<tr><td colspan="2"><b><u><%=link_to "Sign in or Sign up to add a post or comment to a post", new_user_session_path%></u></b></td></tr>
+<%end%>	

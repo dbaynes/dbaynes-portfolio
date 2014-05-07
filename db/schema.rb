@@ -33,6 +33,14 @@ ActiveRecord::Schema.define(version: 201401314061906) do
 
   add_index "comments", ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type", using: :btree
 
+  create_table "portfolios", force: true do |t|
+    t.string   "portfolio_name",        limit: 40
+    t.string   "portfolio_description", limit: 200
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "posts", force: true do |t|
     t.integer  "project_id"
     t.string   "username"
@@ -42,6 +50,7 @@ ActiveRecord::Schema.define(version: 201401314061906) do
     t.string   "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "author_id"
   end
 
   create_table "projects", force: true do |t|
