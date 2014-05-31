@@ -1,6 +1,8 @@
 class CommentsController < ApplicationController
+ 
   before_filter :load_commentable
   load_and_authorize_resource
+
   def index
     #@commentable = Post.find(params[:post_id])  see before_filter
     @comments = @commentable.comments
@@ -39,9 +41,9 @@ class CommentsController < ApplicationController
       @comment.author = 'guest'  # you must sign in to comment.
     end
     if @comment.save
-      #redirect_to [@commentable, :comments], notice: "Comment created"
+      #redirect_to @commentable, :portfolio_type => params[:portfolio_type], notice: "Comment created"
+      EmailWorker.perform_async(@comment.id)
       redirect_to @commentable, :portfolio_type => params[:portfolio_type], notice: "Comment created"
-      #redirect_to :controller => 'projects', :action => 'index',  :portfolio_type => params[:portfolio_type] 
      else
       render :new
     end

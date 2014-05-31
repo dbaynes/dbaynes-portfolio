@@ -13,15 +13,18 @@ gem "minitest-rails-capybara"
 gem 'capybara'
 gem 'poltergeist'
 gem 'turn'
-
+gem 'simplecov'
 gem 'omniauth-twitter'
 gem 'figaro'
+gem 'sidekiq'
+gem 'foreman'
 
 gem 'carrierwave'
 gem 'mini_magick'
 
 gem 'pry'
 gem "mongoid"  #, "~> 3.1.6"
+#gem "letter_opener", :group => :development
 
 gem 'bcrypt-ruby' # '~> 3.0.0'
 

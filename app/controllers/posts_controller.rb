@@ -30,6 +30,8 @@ class PostsController < ApplicationController
     @portfolio_type = params[:post][:portfolio_type]
     
     @post = Post.new(post_params)
+    #@project = @post.project 
+    #@project = Project.where(:id => "#{@project_id}").first 
     @project = @post.project #@project = Project.where(:id => "#{@project_id}").first 
     logger.info("@@@@@@post.Title: #{@post.title}")
     logger.info("@@@@@@post.status: #{@post.status}")
@@ -44,10 +46,17 @@ class PostsController < ApplicationController
     @post.status = "Unpublished"
     logger.info("@@@@@Post Status: #{@post.status}")
     @post.author_id = current_user.id 
-    @post = @project.post.create(username: @post.username, title: @post.title, content: @post.content, author_id: @post.author_id, status: @post.status )
+    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, author_id: @post.author_id, status: @post.status )
     
     if @post.save
       flash[:success] = "Post was successfully created."
+      logger.info("Email Delay setup")
+      #WORKS:PostMailer.post_approval_request(@post).deliver
+      PostMailer.delay_for(5.minutes).post_approval_request(@post)
+
+      #WORKS FOR LETTEROPENER ONLY: PostMailer.delay_for(5.seconds).post_approval_request(@post)
+      #PostMailer.delay.welcome_email
+      #PostMailer.post_approval_request(@post).delay_for(5.seconds)
       redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
     end
   end

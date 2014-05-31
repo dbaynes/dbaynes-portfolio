@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
     end
     @project = Project.new(project_params)
     params[:portfolio_type] = @project.portfolio_type
+    logger.info("@@@@@Project Create- params: #{params[:portfolio_type]} field-type: #{@project.portfolio_type}")
     respond_to do |format|
       format.html do
         if @project.save
