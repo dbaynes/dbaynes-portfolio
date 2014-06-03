@@ -1,15 +1,15 @@
 <tr>
-	<td style="color:#08088A"><b>Post Title</b></td>
-	<td style="color:#08088A"><b>Post Content</b></td>
+	<td style="color:#08088A">Post Title</td>
+	<td style="color:#08088A">Post Content</td>
 </tr>
 
 <tr>
-	<td style="color:#08088A"><%=post.title%></td>
-	<td style="color:#08088A"><%=post.content%></td>
+	<td style="color:#08088A"><b><%=post.title%></b></td>
+	<td style="color:#08088A"><b><%=post.content%></b></td>
 </tr>
 <tr>
-	<td style="color:#08088A"><b>Post Status: </b><%= post.status%></td>
-	<td style="color:#08088A"><b>Posted By: <%= post.username%></b></td>
+	<td style="color:#08088A">Status:&nbsp;<b><%= post.status%></b></td>
+	<td style="color:#08088A">Posted By: <b><%= post.username%></b></td>
 </tr>
 <% if post.comments.any?%>
 	<%#=logger.info("@@@@@Current USER ROLE: #{@current_user}")%>
