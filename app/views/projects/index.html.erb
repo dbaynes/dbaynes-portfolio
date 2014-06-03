@@ -82,15 +82,15 @@ function changePublishStatus(form){
 	 					<%#if can? :create, Post %>
 	 					<%#if can? :create, Comment %>
 	 						<tr>
- 	   					 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+ 	   					 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#0B6121" %></b></td></td>
 	 						</tr>
 		 					<tr>
-		 					 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+		 					 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#0B6121" %></b></td></td>
 		 					</tr>
 					<%end%>
 	    <%else%>
 	 				<tr>
-	 		 			<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+	 		 			<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#0B6121" %></b></td></td>
 	 				</tr>
 	 		<%end%>
 

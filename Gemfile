@@ -19,6 +19,8 @@ gem 'figaro'
 gem 'sidekiq'
 gem 'foreman'
 
+gem 'postmark-mitt'
+
 gem 'carrierwave'
 gem 'mini_magick'
 

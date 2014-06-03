@@ -13,6 +13,7 @@ DbaynesPortfolio::Application.routes.draw do
   resources :projects do
     resources :comments
   end  
+  
     
   root :to => 'projects#start'
   #root :to => 'devise/sessions#new'
