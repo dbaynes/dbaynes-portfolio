@@ -9,12 +9,24 @@
 #
 #two: {}
 #  column: value
+admin:
+  email: admin@admin.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  role: admin
+
+editor:
+  email: editor@editor.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  role: editor
+
+member:
+  email: member@member.com
+  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
+  role: member
+  
 author:
   email: author@example.com
   encrypted_password: <%= User.new.send(:password_digest, 'password') %>
   role: author
 
-editor:
-  email: editor@example.com
-  encrypted_password: <%= User.new.send(:password_digest, 'password') %>
-  role: editor
+  

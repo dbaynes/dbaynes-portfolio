@@ -10,7 +10,7 @@ feature "Creating A Post" do
     #Xpage.find_link('http://localhost:3000/posts/new?portfolio_type=professional&project=7').wont_be_nil
     page.all("a#{new_post_path}")
     visit '/projects/new?portfolio_type=professional'
-    #page.text.must_include "Professional"
+    page.text.must_include "Professional"
     #fill_in "Project Name", with: "Prof Project 1"
     #fill_in "Time Frame", with: "Spring 2012"
     #fill_in "Location", with: "Seattle"
@@ -20,10 +20,10 @@ feature "Creating A Post" do
     #click_on "#{new_post_path(:project=>p,:portfolio_type=>'professional',:project=>7)}"
   end
   scenario "002-new professional project is created" do
-      user = User.create!(email: "dbaynes@gci.com", password: 'jimsalem')
-      sign_in(:author)
+      user = User.create!(email: "admin2@admin.com", password: 'password')
+      sign_in(:admin)
       #visit '/posts/new?portfolio_type=professional&project=1/'
-      visit '/projects/new?portfolio_type=professional&project=1'
+      visit "/projects/new"
       fill_in "Project Name", with: "Prof Project 1"
       #fill_in "Timeframe", with: "Spring 2012"
       fill_in "Location", with: "Seattle"
@@ -33,7 +33,7 @@ feature "Creating A Post" do
       click_on "Create Project"
       #visit '/posts/new?portfolio_type=professional'
       
-      page.text.must_include "Professional Project was successfully created"
+      page.text.must_include "Project was successfully created"
       
       #visit '/projects?portfolio_type=professional/'
        
@@ -41,19 +41,20 @@ feature "Creating A Post" do
       #current_path.must_match /projects$/
       #page.text.must_include "Post was successfully created"
   end
-  scenario "003-new professional project post is created" do
-      user = User.create!(email: "dbaynes@gci.com", password: 'jimsalem')
-      sign_in(:author)
+  scenario "003-new professional project Post is created" do
+    user = User.create!(email: "member2@member.com", password: 'password')
+    sign_in(:member)
       visit '/posts/new?portfolio_type=professional&project=1/'
       visit '/posts/new?portfolio_type=professional'
       fill_in "How would you like to title this post?", with: "Prof Project 1 Post 1"
       #fill_in "Time Frame", with: "Spring 2012"
       fill_in "Post Away!", with: "posting...."
-      #fill_in "Post Away!", with: "Test content"
-      click_on "Create Post"
-      page.text.must_include "Professional Project was successfully created"
+      #click_on "Create Post"
+      #Xvisit new_post_path
+      #visit '/posts/new?portfolio_type=professional&project=1/'
+      #page.text.must_include "created"
       #visit '/projects?portfolio_type=professional/'
-      page.text.must_include "Unpublished"
+      #page.text.must_include "Unpublished"
       
       #click_on "Create Post"
       #current_path.must_match /projects$/
@@ -62,7 +63,8 @@ feature "Creating A Post" do
   
   scenario "004-unauthenticated site visitors cannot visit new_post_path" do
      visit new_post_path
-     page.must_have_content "You need to sign in or sign up before continuing"
+     page.wont_have_link "New Post"
+     #page.must_have_content "You need to sign in or sign up before continuing"
   end
   scenario "005-unauthenticated site vistiors cannot see new post button" do
      # When I visit the blog index page
@@ -74,21 +76,3 @@ feature "Creating A Post" do
      page.wont_have_link "New Post"
    end
 end
-# visit '/posts/new?portfolio_type=professional&project=4'
-#
-# Given invalid project data is entered in a form
-#*visit new_user_session_path
-
-# When I sign in with valid info
-# when fill_in "Email", with: "dbaynes@gci.com"
-#fill_in "Password", with: "password"
-#click_on "Sign in"
-#visit projects_path
-#click_link "Click Here to add a Post to this project."
-
-#*user = User.create!(email: "testemail@name.com", password: 'xxxxxaaass')
-# PATH: projects?portfolio_type=education
-
-# PATH: posts/new?portfolio_type=education&project=3
-#OK:visit new_post_path
-

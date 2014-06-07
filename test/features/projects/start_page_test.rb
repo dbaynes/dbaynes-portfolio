@@ -2,7 +2,7 @@ require "test_helper"
 
 feature "Start Page confirmation" do
   scenario "Landing Page for the Portfolion App" do
-    render_views
+    #render_views
     visit root_path
     #Xfind("h3", text: "Portfolio Home David Baynes")
     find("h3").text "Portfolio Home David Baynes"

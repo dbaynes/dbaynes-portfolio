@@ -12,11 +12,12 @@ feature "Creating A Project" do
   #end
   scenario "visit professional projects index page" do
     visit projects_path
-    page.must_have_content "You need to sign in or sign up before continuing."
+    #page.must_have_content "You need to sign in or sign up before continuing."
+    page.wont_have_link "New Post"
   end
   scenario "visit project with invalid credentials" do
-      visit projects_path
-      current_path.must_match "/users/sign_in"
+      visit new_project_path
+      current_path.must_match "/users/login"
       #page.text.must_include "Project could not be saved"
       #page.text.must_include "Name is too short"
       #page.text.must_include "Timeframe can't be blank"
@@ -25,18 +26,13 @@ feature "Creating A Project" do
     end
     scenario "Logged in as Admin, Projects index page has new button if admin" do
         # Given invalid project data is entered in a form
-        visit projects_path
-
-        #fill_in "Name", with: "Q"
-        # When the form is submitted with a Name and  and missing title field
-        #*click_on "Project"
-        # Then the form should be displayed again, with an error messages
-        #*current_path.must_match /projects$/
-        current_path.must_match "/users/sign_in"
-        ##########################
+        sign_in(:admin)
+        visit '/projects?portfolio_type=professional'
+        page.text.must_include "New Professional Project"
+          ##########################
         # if admin have new button
         ###########################
-        click_on 'Professional'
+        #click_on 'Professional'
         #*page.text.must_include "Project could not be saved"
         #*page.text.must_include "Name is too short"
         #*page.text.must_include "Timeframe can't be blank"
