@@ -14,5 +14,5 @@
 <%end%>
 <!---...%if params[:action]%-->
 <%= render 'form', portfolio_type: params[:portfolio_type] %>
-<%= link_to "Back to #{params[:portfolio_type].capitalize} Portfolio", projects_path(portfolio_type: params[:portfolio_type]) %> | 
+<%= link_to "Back to #{params[:portfolio_type]} Portfolio", projects_path(portfolio_type: params[:portfolio_type]) %> | 
 <%= link_to 'Back to Portfolio Overview', projects_path %>

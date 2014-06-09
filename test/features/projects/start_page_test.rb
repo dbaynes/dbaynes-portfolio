@@ -1,8 +1,18 @@
 require "test_helper"
+
+feature "Start Page confirmation" do
+  scenario "Landing Page for the Portfolion App" do
+     #render_views
+     visit root_path
+     #Xfind("h3", text: "Portfolio Home David Baynes")
+     find("h3").text "Portfolio Home David Baynes"
+   end
+end
 feature "As the site owner, I want to add a portfolio and projects so that I can show off my work" do
   scenario "adding a new portfolio type" do
      #Xvisit projects_path
     sign_in(:admin)
+
     visit root_path
 
     #click_on "Professional"
