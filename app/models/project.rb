@@ -1,7 +1,10 @@
 class Project < ActiveRecord::Base
+  belongs_to :portfolio
   has_many :posts, dependent: :destroy
-    
-  accepts_nested_attributes_for :posts, :allow_destroy => true
+  has_many :comments, as: :commentable
+  
+  #accepts_nested_attributes_for :posts, :allow_destroy => true
+  
   validates :name,                :presence => true,
                                   :length => { :minimum => 5 }
   #validates :timeframe,           :presence=> true

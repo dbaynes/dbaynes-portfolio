@@ -1,6 +1,10 @@
 <h1>Editing project</h1>
 
 <%= render 'form' %>
+<%= link_to "Cancel", :back %>
+<br>
+<br>
 
-<%= link_to 'Show', @project %> |
+<%= link_to 'Show', project_path(@project,:portfolio_type => params[:portfolio_type]) %> |
+
 <%= link_to 'Back', projects_path %>

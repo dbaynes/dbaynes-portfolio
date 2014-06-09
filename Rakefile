@@ -5,4 +5,4 @@ require File.expand_path('../config/application', __FILE__)
 
 DbaynesPortfolio::Application.load_tasks
 
-MiniTest::Rails::Testing.default_tasks << "features"
+task default: 'test:all'

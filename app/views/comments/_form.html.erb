@@ -1,0 +1,26 @@
+<%= form_for [@commentable, @comment] do |f| %>
+	<%if @comment.errors.any? %>
+		<div class="error_messges">
+			<h2>Please correct the following errors.</h2>
+			<ul>
+				<% @comment.errors.full_messages.each do |msg|%>
+					<li><%= msg %></li>
+				<%end%>
+			</ul>
+		</div>
+	<%end%>
+	<div class"field">
+		<%#= f.hidden_field :portfolio_type, :value => params[:portfolio_type]%>
+		<!--%=@commentable.content%-->
+	</div>	
+	<br>
+	<br>
+	
+		<div class"field">
+			<%=f.text_area :content, rows: 8 %>
+		</div>	
+		<div class="actions">
+			<%=f.submit "Create Comment", :portfolio_type=> params[:portfolio_type],:class=>"button" %> <!--:portfolio_type => params[:portfolio_type], :class=>"button" %-->
+			
+		</div>
+<%end%>

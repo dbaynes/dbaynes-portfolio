@@ -17,7 +17,7 @@ feature "As the site visitor, I want to see a developer's portfolio" do
     visit projects_path
     #visit '/projects?portfolio_type=athletics/'
     #current_path.must_match /projects$/
-    page.text.must_include "Create a New Portfolio Type"
+    page.text.must_include "Customize Portfolio"
     #page.text.must_include "Ruby, Rails"
   end
   

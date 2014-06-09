@@ -1,42 +1,49 @@
 require "test_helper"
 
-feature "Creating A Project" do
-  #scenario "A - for new project, title should say new" do
-  #  #Given a completed new portfolio form
-  #  #When I submit the form
-  #  #Then a new portfolio should be created and displayed
-  #  #?click_on "Create New Project"
-  #  #?page.text.must_include "New Project"
-  #  visit root_path
-  #  page.must_have_content "project"
-  #end
-  scenario "visit professional projects index page" do
-    visit projects_path
-    #page.must_have_content "You need to sign in or sign up before continuing."
-    page.wont_have_link "New Post"
+feature "As the site owner, I want to add a portfolio item so that I can show off my work" do
+  scenario "adding a new project" do
+    sign_in(:admin)
+    visit '/projects?portfolio_type=professional'
+    page.text.must_include "No Professional projects created to date."
   end
-  scenario "visit project with invalid credentials" do
-      visit new_project_path
-      current_path.must_match "/users/login"
-      #page.text.must_include "Project could not be saved"
-      #page.text.must_include "Name is too short"
-      #page.text.must_include "Timeframe can't be blank"
-      #page.text.must_include "Location can't be blank"
-      page.text.must_include "Sign in"
-    end
-    scenario "Logged in as Admin, Projects index page has new button if admin" do
-        # Given invalid project data is entered in a form
-        sign_in(:admin)
-        visit '/projects?portfolio_type=professional'
-        page.text.must_include "New Professional Project"
-          ##########################
-        # if admin have new button
-        ###########################
-        #click_on 'Professional'
-        #*page.text.must_include "Project could not be saved"
-        #*page.text.must_include "Name is too short"
-        #*page.text.must_include "Timeframe can't be blank"
-        #*page.text.must_include "Location can't be blank"
-        #*page.text.must_include "Project Description can't be blank"
-      end
+  scenario "starting with no projects" do
+    sign_in(:admin)
+    visit '/projects?portfolio_type=professional'
+    page.text.must_include "No Professional projects created to date."
+    page.text.must_include "New Professional Project"
+  end
+  scenario "new project has invalid data" do
+    # Given invalid project data is entered in a form
+    sign_in(:admin)
+    visit '/projects?portfolio_type=professional' 
+    page.text.must_include "New Professional Project"
+    click_link "New Professional Project"
+    fill_in "Project Name", with: "Q"
+  
+    # When the form is submitted with a short name and missing technologies_used field
+    click_on "Create Project"
+  
+    # Then the form should be displayed again, with an error message
+    current_path.must_match /projects$/
+    page.text.must_include "Name is too short (minimum is 5 characters)"
+    page.text.must_include "Location can't be blank"
+    page.text.must_include "Project description can't be blank"
+  end
+  scenario "adding a new project" do
+    sign_in(:admin)
+    visit '/projects?portfolio_type=professional' 
+    page.text.must_include "New Professional Project"
+    click_link "New Professional Project"
+    page.text.must_include "Project Name"
+    #project = Project.create!(name: "Test Name", timeframe:"Spring, 2014", location: "Seattle",project_description: "Good Stuff")
+    
+    fill_in "Project Name", with: "Test Name"
+    fill_in "Time Frame", with: "Spring, 2012"
+    fill_in "Location", with: "San Francisco"
+    fill_in "Description", with: "Test!"
+    click_on "Create Project"
+    #visit '/projects?portfolio_type=professional' 
+    page.text.must_include "Project was successfully created"  
+  end
 end
+

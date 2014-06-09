@@ -1,16 +1,43 @@
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.2'
+gem 'rails', '4.1.1'
 gem 'devise'
 gem 'cancan'
+gem 'pundit'  #awesome policy management - beats cancan.
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 gem 'foundation-rails'
-gem "minitest-rails"
-gem "minitest-matchers"
-gem "minitest-rails-capybara"
+#gem "minitest-rails", "2.0.0"
+#gem "minitest-matchers"
+#gem "minitest-rails-capybara", "2.0.0"
 gem 'capybara'
-gem 'turn'
+gem 'poltergeist'
+
+#gem 'turn'
+group :development, :test do
+  gem "minitest-rails-capybara", "2.0.0"
+  gem "ZenTest"
+  gem "autotest-rails"
+  gem "autotest-fsevent" # platform: mac
+  gem "autotest-growl"
+  gem "faker"
+  gem "pry-rails"
+  gem "pry-byebug"
+  gem "pry-doc"
+  gem "launchy"
+end
+
+gem 'simplecov'
+
+gem 'sidekiq'
+gem 'foreman'
+
+gem 'carrierwave'
+gem 'mini_magick'
+
+gem 'pry'
+gem "mongoid"  #, "~> 3.1.6"
+
 
 gem 'omniauth-twitter'
 gem 'figaro'
@@ -59,4 +86,4 @@ gem 'turbolinks'
 # To use debugger
 # gem 'ruby-debug'
 
-ruby "2.1.0"
+ruby "2.1.2"

@@ -1,0 +1,36 @@
+	
+	<h1>Users</h1>
+ 	<table width="100%">
+			  <tr>
+			    <th style="background: #EAEEF2;width:8%;text-align:center"><b>UserName</b></th>
+			    <th style="background: #EAEEF2;width:5%;text-align:center"><b>Email</b></th>
+			    <th style="background: #EAEEF2;width:5%;text-align:center"><b>Role</b></th>
+					<th style="background: #EAEEF2;width:5%;text-align:center"><b>Date Created</b></th>
+					<th style="background: #EAEEF2;width:5%;text-align:center"><b>Last Updated</b></th>
+					<th style="background: #EAEEF2;width:5%;text-align:center"><b>Action</b></th>
+			  </tr>
+			
+			<% @users.each do |u| %>
+			  <tr>
+				<td style="text-align:left"><%= link_to u.username, :action => 'edit', :id => u %></td>
+				<td style="text-align:left"><%= u.email %></td>
+				<td style="text-align:left"><%= !u.role.nil? ? u.role.humanize.capitalize : '' %></td>
+				<td style="text-align:left"><%= u.created_at.strftime("%m/%d/%Y") %></td>
+				<td style="text-align:left"><%= u.updated_at.strftime("%m/%d/%Y") %></td>
+				<td style="text-align:center"><%= link_to 'Delete User', user_path(u), method: :delete, data: { confirm: 'Are you sure?' } %>
+				<!--td style="text-align:center">
+					<select style="position:relative;top:0em;left:0em;width:6em;" name="action" id=<%=u.id%> onChange="setaction(<%=u.id%>)">
+						<option value="nada"></option>
+						<option id=<%=u.id %> value="delete">Delete</option>
+					</select>
+				</td-->  		    
+			  </tr>
+			<%end%>
+	</table>
+	<%# if can? :create, User %>
+		<%#= link_to "Create New User", new_user_path %>
+	<%#end%>	
+	
+			<div style="top:0em;left:30em;width:20em;height:8em;-webkit-border-radius: 1px">
+ 				<%= link_to "Back to Portfolio Collection", root_path%>
+			</div>

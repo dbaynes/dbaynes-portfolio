@@ -1,0 +1,22 @@
+<tr>
+	<td style="color:#08088A"><b>Post Title</b></td>
+	<td style="color:#08088A"><b>Post Content</b></td>
+</tr>
+
+<tr>
+	<td style="color:#08088A"><%=post.title%></td>
+	<td style="color:#08088A"><%=post.content%></td>
+</tr>
+<tr>
+	<td style="color:#08088A"><b>Post Status: </b><%= post.status%></td>
+	<td style="color:#08088A"><b>Posted By: <%= post.username%></b></td>
+</tr>
+<% if post.comments.any?%>
+	<%#=logger.info("@@@@@Current USER ROLE: #{@current_user}")%>
+	<% @comments = post.comments%>
+	<%= render 'comments/comments', comments: @comments %>
+	<!--tr>
+ 		<td colspan="2" style="text-align: center"><b><%#= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td>
+	</tr-->
+	
+<%end%>

@@ -1,0 +1,13 @@
+<h1>Post</h1>
+<!--% if can? :create, Project%-->
+<!--%if post.status_published?%-->
+	<h2><%= @post.title %></h2>
+	<%= simple_format @post.content%>
+	<h2>Comments</h2>
+	<%=render "comments/comments"%>
+	<%=render "comments/form" %>
+<!--%else%>
+	<h3>Post and Comments for this Project are not yet approved to be published.</h3>
+<!%end%-->	
+<p><%= link_to "Back to Project Collection", projects_path%></b></p>
+
