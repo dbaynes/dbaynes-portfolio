@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.1.1'
+
 gem 'devise'
 gem 'cancan'
 gem 'pundit'  #awesome policy management - beats cancan.
