@@ -30,10 +30,12 @@ class PostsController < ApplicationController
     @portfolio_type = params[:post][:portfolio_type]
     
     @post = Post.new(post_params)
-    @project = @post.project ##@project = Project.where(:id => "#{@project_id}").first 
+    #@project = @post.project 
+    #@project = Project.where(:id => "#{@project_id}").first 
+    @project = @post.project #@project = Project.where(:id => "#{@project_id}").first 
     logger.info("@@@@@@post.Title: #{@post.title}")
     logger.info("@@@@@@post.status: #{@post.status}")
-    logger.info("@@@@@portfolio_type: #{@project.portfolio_type}")
+    #logger.info("@@@@@portfolio_type: #{@project.portfolio_type}")
     ##@post = params[:post] 
     if user_signed_in?
       @post.username = current_user.email
@@ -43,11 +45,18 @@ class PostsController < ApplicationController
     @post.title = params[:post][:title]
     @post.status = "Unpublished"
     logger.info("@@@@@Post Status: #{@post.status}")
-     
-    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
+    @post.author_id = current_user.id 
+    @post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, author_id: @post.author_id, status: @post.status )
     
     if @post.save
       flash[:success] = "Post was successfully created."
+      logger.info("Email Delay setup")
+      #WORKS:PostMailer.post_approval_request(@post).deliver
+      PostMailer.delay_for(5.minutes).post_approval_request(@post)
+
+      #WORKS FOR LETTEROPENER ONLY: PostMailer.delay_for(5.seconds).post_approval_request(@post)
+      #PostMailer.delay.welcome_email
+      #PostMailer.post_approval_request(@post).delay_for(5.seconds)
       redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
     end
   end
@@ -73,14 +82,19 @@ class PostsController < ApplicationController
     #@project = Project.where(:id => "#{@post.project_id}").first 
     logger.info("@@@@@@portfolio_type:  = #{@project.portfolio_type}")
     
-    @post.username = current_user.email
+    if current_user.role != 'editor'
+      @post.username = current_user.email
+    end
     #@post.title = params[:post][:title]
     if @post.status == "Unpublished"
       @post.status = "Published"
+      @post.published = true
     elsif @post.status == "Published"
       @post.status = "Unpublished"
+      @post.published = false
     else
       @post.status = "Unpublished"
+      @post.published = false
     end
       
     logger.info("@@@@@Post Status: #{@post.status} for #{@post.title}")
@@ -88,9 +102,16 @@ class PostsController < ApplicationController
     ##@post = @project.posts.create(username: @post.username, title: @post.title, content: @post.content, status: @post.status )
     
     if @post.save
-      flash[:success] = "Post was successfully created."
+      flash[:success] = "Post was successfully updated."
       redirect_to projects_path(:portfolio_type =>"#{@project.portfolio_type}")
     end
+  end
+  # DELETE /posts/1
+  def destroy
+    @portfolio_type = params[:portfolio_type]
+    logger.info("@@@@@@POSTS DESTROY - Portfolio: #{params[:portfolio_type]}")
+    @post.destroy
+    redirect_to projects_path(:portfolio_type =>@portfolio_type), notice: 'Post was successfully destroyed.'
   end
   
   def post_params

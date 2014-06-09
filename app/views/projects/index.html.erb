@@ -17,116 +17,103 @@ function changePublishStatus(form){
 	<%else%>
 	  <h1>All Projects</h1>
 <%end%>
- 	<table width="100%">
-	  <%if @projects.empty? %>
-			<p style="width:100%"><b>No <%=params[:portfolio_type].capitalize%> projects created to date.</b></p>
-		<%end%>
-     <% @projects.each do |p| %>
-		 	<tr>
-	   	   <td width="25%"><b style="color:#08088A">Project:</b></td>
-		 	 	 <td style="color:#08088A"><%=p.name%></td>
-		 	</tr>
-		 	<tr>
-		 	 	<td><b style="color:#08088A">Time Frame:</b></td>
-		 	 	<td style="color:#08088A"><%=p.timeframe%></td>
-		 	</tr>
-		 	<tr>
-		 	 	<td><b style="color:#08088A">Locaton:</b></td>
-		 	 	<td style="color:#08088A"><%=p.location%></td>
-		 	</tr>
-		 	<tr>
-		 	 	<td><b style="color:#08088A">Descripton:</b></td>
-		 	 	<td style="color:#08088A"><%=p.project_description%></td>
-		 	</tr>
-		 	<% @posts = Post.where(:project_id=>p.id)%>
-		  	<%if !@posts.nil? && @posts.length > 0 %>
-						<tr>
-							<!--#08088A  - blue  
-									#0B6121  - green
-									#C31E2D  - red
-							-->		
-									
-			 			 	<td style="text-align: left;"><b style="color:#08088A">Previous Posts:</b></td>
-							<td></td>
-			 			</tr>
-						<tr>
-			 			 	<td style="text-align: center; style=color:#0B6121"><b style="color:#08088A">Post Title</b></td>
-			 			 	<td style="text-align: center; style=color:#0B6121"><b style="color:#08088A">Post Content</b></td>
-			 			</tr>
-						<%@posts.each do |post| %>
-							<% if can? :read, Post %> 
-								<% if post.status_published?%>
-								<%=logger.info("@@@@@Post Status #{post.status_published?}")%>	
-							 	<%= render 'posts/post', post: post %>
-								<% @comments = Comment.find(:all, :conditions => "commentable_type = 'Post' AND commentable_id = #{post.id}" )%>
-								<% @comments.each do |c| %>
-									<tr>
-										<td style="color:#08088A" colspan="2"><b>Comment: </b><%= c.content%></td>
-									</tr>
-								<%end%>		
-									<tr>
-									 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
-									</tr>
-							<%else%>
-								<tr>
-									<td style="color:#08088A"><%=post.title%></td>
-									<td style="color:#08088A"><%=post.content%></td>
-								</tr>
-								
-								<tr>
-									<td style="color:#08088A"><b>Post Status!: </b><%= post.status%></td>
-									<td style="color:#08088A"><b>Posted By: <%= post.username%></b></td>
-								</tr>
-								<% @comments = Comment.find(:all, :conditions => "commentable_type = 'Post' AND commentable_id = #{post.id}" )%>
-								<% @comments.each do |c| %>
-									<tr>
-										<td style="color:#08088A" colspan="2"><b>Comment: </b><%= c.content%></td>
-									</tr>
-								<%end%>	
-								<tr>
-								 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
-								</tr>
-									
-								
-								<% if can? :update, Post %>
-										<%=form_for (post) do |f| %>
-											<%if post.status_published?%>
-												<td style="color:#08088A"><b>Un-Publish Post?</b>&nbsp;&nbsp;<%= f.check_box :published, :checked_value => "0",:onchanget=>"changePublishStatus(this);" %></td>
-												<td style="color:#08088A"><b> <%= button_to "Change to Un-Published", edit_post_path(post,p)%></b></td>
-											<%else%>
-												<td style="color:#C31E2D"><b>Publish Post?</b>&nbsp;&nbsp;<%= f.check_box :published,:checked_value => "1", :onchange=>"changePublishStatus(this);" %></td>
-												<td style="color:#C31E2D"><b> <%= button_to "Change to Published", edit_post_path(post,p)%></b></td>
-											<%end%>
-										<%end%>	
-										</tr>
-								<%end%> 
-								
-								<tr>
-								 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
-								</tr>
-									<%end%>	
-							<%end%>
-						<%end%>
-			<%end %>
-		 	<!--%if can? :create, Post %-->
-				<tr>
-		 		 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
-		 		</tr>
-		  <!--%end%-->
-			<!--%if current_user.email == 'dbaynes@gci.com'%-->
-			<% if can? :update, Project %>
-	     	 <tr>
-	     	   <td><b><%= link_to 'Edit Project', edit_project_path(p,:portfolio_type => params[:portfolio_type]) %></td>
-	     	   <td><b><%= link_to 'Delete Project', p, method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
-	      	</tr>
-			<%end%>
-    <% end %>
-  </tbody>
-</table>
-
-	<% if can? :create, Project%>
-		<%= link_to "New #{params[:portfolio_type].capitalize} Project", new_project_path(:portfolio_type=> "#{params[:portfolio_type]}") %> |
-		<%= link_to "Back to Portfolio Collection", root_path%>
-	<%else%>
-		<%= link_to "Back to Portfolio Collection", root_path%>
+<table width="100%">
+  <%if @projects.empty? %>
+		<p style="width:100%"><b>No <%=params[:portfolio_type].capitalize%> projects created to date.</b></p>
 	<%end%>
+  <% @projects.each do |p| %>
+	 		<tr>
+   		   <td width="27%"><b style="color:#C31E2D">Project:</b></td>
+	 		 	 <td ><h2 style="color:#C31E2D"><%=p.name%></h2></td>
+	 		</tr>
+	 		<tr>
+	 		 	<td><b style="color:#08088A">Time Frame:</b></td>
+	 		 	<td style="color:#08088A"><%=p.timeframe%></td>
+	 		</tr>
+	 		<tr>
+	 		 	<td><b style="color:#08088A">Locaton:</b></td>
+	 		 	<td style="color:#08088A"><%=p.location%></td>
+	 		</tr>
+	 		<tr>
+	 		 	<td><b style="color:#08088A">Descripton:</b></td>
+	 		 	<td style="color:#08088A"><%=p.project_description%></td>
+	 		</tr>
+	 		<tr><td colspan="2"></td></tr>
+	  	<!--#08088A  - blue  
+	  			#0B6121  - green
+	  			#C31E2D  - red
+	  	-->	
+	 		<%@posts = PostPolicy::Scope.new(current_user,Post).resolve%>
+	  	<%# @posts = Post.where(:project_id=>p.id)%>
+	  	<%if @posts.any?%>
+	 				<%@posts.each do |post| %>
+	 					<%# if can? :read, Post %> 
+	 					<%#@current_user = ''%>
+	 					<% if current_user %>
+	 					  <%@current_user = current_user.role%>
+	 					<%else%>
+	 						<%user = User.new%>
+	  					<%user.role = 'guest'%>
+	  					<%@current_user = 'guest'%>
+	 					<%end%>
+	  				<%if policy(post).show?%>
+	 							<%= render 'posts/post', post: post %>	
+	  				<%end%>
+	  				<%if policy(post).publish?%> 
+ 	 					 	 <tr>
+	 							<%=form_for (post) do |f| %>
+ 	 					 	 		<%if post.status_published?%>
+	 						 	 		<td style="color:#08088A;text-align:center;" colspan="2" ><b> <%= link_to "Un-Publish Post", post, :method=>"put" %> | <%= link_to 'Delete Post', post_path(post,:portfolio_type => params[:portfolio_type]), method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
+	 									</b></td>
+ 	 					 	 		<%else%>
+	 									<td colspan="2" style="text-align:center"><b> <%= link_to "Publish Post", post ,:method=>"put" %> | <%= link_to 'Delete Post', post_path(post,:portfolio_type => params[:portfolio_type]), method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
+ 	 					 	 		<%end%>
+ 	 					 	  <%end%>	
+ 	 					 	 </tr>
+ 	 					<%end%> 
+      			
+	 					<!--tr>
+	 					 	<td colspan="2" style="text-align: center"><b><%#= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+	 					</tr-->
+	 					
+	 					<!--tr>
+	 					 	<td colspan="2" style="text-align: center"><b><%#= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+	 					</tr-->
+	 					<%#if can? :create, Post %>
+	 					<%#if can? :create, Comment %>
+	 						<tr>
+ 	   					 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Comment to this post.', new_post_comment_path(post,:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+	 						</tr>
+		 					<tr>
+		 					 	<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+		 					</tr>
+					<%end%>
+	    <%else%>
+	 				<tr>
+	 		 			<td colspan="2" style="text-align: center"><b><%= link_to 'Click Here to add a Post to this project.', new_post_path(:project=>p,:portfolio_type=>params[:portfolio_type]), :style=>"color:#08088A" %></b></td></td>
+	 				</tr>
+	 		<%end%>
+
+	 <tr><td colspan="2">&nbsp;</td></tr>
+	
+	 <%# if can? :update, Project %>
+		<%if policy(p).create?%> 
+    	 <tr>
+					<td><b><%= link_to 'Edit Project', edit_project_path(p,:portfolio_type => params[:portfolio_type]) %></td>
+    	   <%#if can? :destroy, Project %>
+	 				<td><b><%= link_to 'Delete Project', p, :portfolio_type => params[:portfolio_type], method: :delete, data: { confirm: 'Are you sure?' } %></b></td>
+	 		</tr>
+	  <%end%>
+	<%end%>
+	</tbody>
+	</table>
+	<%if policy(@projects).create?%> 
+		<%= link_to "New #{params[:portfolio_type].capitalize} Project", new_project_path(:portfolio_type=> "#{params[:portfolio_type]}",remote: true,id: :new_link) %></td>
+	<%else%>
+			<%= link_to "Back to Portfolio Collection", root_path%>
+	<%end%>
+	
+
+
+
+

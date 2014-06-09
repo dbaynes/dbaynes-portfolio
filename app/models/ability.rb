@@ -8,26 +8,39 @@ class Ability
     user ||= User.new(:role=>"guest")  #guest user
     Rails.logger.info("@@@@@User Role in Ability: #{user.role}")
     if user.role == 'admin'
-      Rails.logger.info("@@@@@User Role in Ability is Admin: #{user.role}")
+      #Rails.logger.info("@@@@@User Role in Ability is Admin: #{user.role}")
       can :read, :all
       can :create, Project
       can :update, Project
+      can :destroy, Project
       can :create, Post
+      can :create, User
       can :update, User
+      
     elsif 
       user.role == 'editor'
-        Rails.logger.info("@@@@@User Role in Ability is Editor: #{user.role}")
+        #Rails.logger.info("@@@@@User Role in Ability is Editor: #{user.role}")
         can :read, :all
         can :create, Post 
         can :update, Post
-        can :update, Project 
-     elsif user.role == 'guest'
-        Rails.logger.info("@@@@@User Role in Ability is Guest: #{user.role}")
-        #can :read, :all
-        #can :read, Project
-         can :read, Post
-        can :create, Post 
+        can :destroy, Post
         can :create, Comment 
+        can :update, Comment 
+        can :update, Project 
+     elsif user.role == 'member'
+        #Rails.logger.info("@@@@@User Role in Ability is Member: #{user.role}")
+        can :read, :all
+        can :read, Project
+        can :read, Post
+        can :create, Post
+        #can :update, Post 
+        can :create, Comment 
+      elsif user.role == 'guest'
+         #Rails.logger.info("@@@@@User Role in Ability is guest: #{user.role}")
+         #can :read, Post, :published => true
+         can :read, Post, :published => true
+    #else
+      #logger.info("@@@@@No Role Found!")
     end 
     
        #user ||= User.new # guest user (not logged in)

@@ -1,9 +1,10 @@
 <% if user_signed_in? %>
 	<br/>
 	<br/>
-  <p>Welcome <%= current_user.username %></p>
+  <p id="welcome">Welcome <%= current_user.username %> at <%= current_user.email%></p>
+  <p id="nada"></p>
 	<%if !current_user.email.nil?   %>
-  	<%= link_to "Logged In with email #{current_user.email} - [click to logout]", destroy_user_session_path(:logout =>"logout"), :method => :delete %>
+  	<%= link_to "Logged In as #{current_user.role} - [click to logout]", destroy_user_session_path(:logout =>"logout"), :method => :delete %>
 	<%end%>
 <%elsif !params[:controller] == 'devise/sessions' && !params[:action] == 'new'%>
 		<br/>

@@ -46,3 +46,4 @@ feature "As the site owner, I want to add a portfolio item so that I can show of
     page.text.must_include "Project was successfully created"  
   end
 end
+

@@ -37,7 +37,8 @@
 
 <%end%>
 <% if user_signed_in? %>
-	<% if can? :create, Project %>
- 	   	<p><b><%= link_to 'Create a New Portfolio Type', new_project_path %></p>
+	<% portfolio = Portfolio.new %>
+	<% if policy(portfolio).create? %>
+ 	   	<p><b><%=link_to 'Customize Portfolio', portfolios_path %></b></p>
 	<%end%>
 <%end%>
